@@ -1,57 +1,58 @@
 <!-- <div class="page-header" filter-color="white"> -->
 <div class="container">
-    <div class="col-md-4 content-center">
-        <div class="card card-login card-plain">
-            <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="header header-primary text-center">
-                    <div>
-                        <img src="assets/default-logo.png" width="150" height="140" alt="logoTECPlane">
-                    </div>
-                </div>
-                <div class="content" style="text-align: left;">
-                    <label>Id</label>
-                    <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-                        <input type="text" class="form-control" placeholder="Id" (focus)="focus=true"
-                            (blur)="focus=false" formControlName="id_user"
-                            [ngClass]="{ 'is-invalid': submitted && f.id_user.errors }">
-
-                        <div *ngIf="submitted && f.password.errors">
-                            <div *ngIf="f.password.errors.required" class="e_input">El Id es requerido</div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <label>Contraseña</label>
-                <div class="form-group" [ngClass]="{'input-group-focus':focus1===true}">
-                    <input type="password" placeholder="Contraseña" class="form-control form-control-danger"
-                        (focus)="focus1=true" (blur)="focus1=false" formControlName="password"
-                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-
-                    <div *ngIf="submitted && f.password.errors">
-                        <div *ngIf="f.password.errors.required" class="e_input">La contraseña es requerida</div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-primary btn-round btn-block">Iniciar Sesión</button>
-                </div>
-                <div class="pull-left">
-                    <p class="text-center">Si todavía no tienes una cuenta, registrate ahora</p>
-
-                    <button class="btn btn-light btn-round btn-block"
-                        style="color: blue;" routerLink="/signUp">Registrarse</button>
-                </div>
-            </form>
+  <div class="col-md-4 content-center">
+    <div class="card card-login card-plain">
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="header header-primary text-center">
+          <div>
+            <img src="assets/default-logo.png" width="150" height="140" alt="logoTECPlane">
+          </div>
         </div>
+        <div class="content" style="text-align: left;">
+          <label>Id</label>
+          <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+            <input type="text" class="form-control" placeholder="Id" (focus)="focus=true" (blur)="focus=false"
+              formControlName="id_user" [ngClass]="{ 'is-invalid': submitted && f.id_user.errors }">
+
+            <div *ngIf="submitted && f.password.errors">
+              <div *ngIf="f.password.errors.required" class="e_input">El Id es requerido</div>
+            </div>
+
+          </div>
+
+          <label>Contraseña</label>
+          <div class="form-group" [ngClass]="{'input-group-focus':focus1===true}">
+            <input type="password" placeholder="Contraseña" class="form-control form-control-danger"
+              (focus)="focus1=true" (blur)="focus1=false" formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+
+            <div *ngIf="submitted && f.password.errors">
+              <div *ngIf="f.password.errors.required" class="e_input">La contraseña es requerida</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-primary btn-round btn-block" >Iniciar Sesión</button>
+        </div>
+        <div class="pull-left">
+          <p class="text-center">Si todavía no tienes una cuenta, registrate ahora</p>
+
+          <button class="btn btn-light btn-round btn-block" style="color: blue; background-color: rgb(200, 200, 200);"
+            routerLink="/signUp">Registrarse</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-<footer class="footer">
-    <div class="row justify-content-around">
-        <div class="col-5">
-            <a> Contactenos</a>
-        </div>
-        <div class="col-5">
-            <a>Siguenos en <i class="fab fa-twitter"></i></a>
-        </div>
+<footer class="footer footer_">
+  <div class="row justify-content-around">
+    <div class="col-5">
+      <a> Contactenos</a>
     </div>
+    <div class="col-5">
+      <a>Siguenos en <i class="fab fa-twitter"></i></a>
+    </div>
+    <br>
+  </div>
 </footer>
 <!-- </div> -->
