@@ -1,0 +1,46 @@
+<div class="container">
+    <mat-form-field>
+        <input matInput placeholder="Input">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <textarea matInput placeholder="Textarea"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-select placeholder="Select">
+            <mat-option value="option">Option</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Enter your email" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+</div>
+
+<br>
+
+<h3>Raised Buttons</h3>
+<div class="example-button-row">
+    <button mat-raised-button [routerLink]="['/signUp']">Basic</button>
+    <button mat-button.mat-success color="success">Primary</button>
+    <button mat-stroked-button color="success">Accent</button>
+    <button mat-raised-button color="warn">Warn</button>
+    <button mat-raised-button disabled>Disabled</button>
+    <a mat-raised-button routerLink=".">Link</a>
+</div>
+
+<br>
+
+
+
+<div class='md-padding' layout="row" flex>
+    <mat-tab-group headerPosition="below" mat-align-tabs="center">
+        <mat-tab label="Menú"> You </mat-tab>
+        <mat-tab label="Orden"> Will </mat-tab>
+        <mat-tab label="Estadisticas"> Pass </mat-tab>
+        <mat-tab label="Amigos"> The </mat-tab>
+        <mat-tab label="Cuenta"> Course (S&S)</mat-tab>
+    </mat-tab-group>
+</div>
