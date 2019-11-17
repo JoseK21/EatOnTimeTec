@@ -15,8 +15,10 @@
                             (blur)="focus=false" formControlName="id_user"
                             [ngClass]="{ 'is-invalid': submitted && f.id_user.errors }">
 
-                        <div *ngIf="submitted && f.id_user.errors" class="e_input"></div>
-                        <div *ngIf="f.id_user.errors.required">Id es requerido</div>
+                        <div *ngIf="submitted && f.password.errors">
+                            <div *ngIf="f.password.errors.required" class="e_input">El Id es requerido</div>
+                        </div>
+                        
                     </div>
                 </div>
                 <label>Contraseña</label>
@@ -35,8 +37,8 @@
                 <div class="pull-left">
                     <p class="text-center">Si todavía no tienes una cuenta, registrate ahora</p>
 
-                    <button class="btn btn-outline-primary btn-round btn-block"
-                        style="color: blue;">Registrarse</button>
+                    <button class="btn btn-light btn-round btn-block"
+                        style="color: blue;" routerLink="/signUp">Registrarse</button>
                 </div>
             </form>
         </div>
