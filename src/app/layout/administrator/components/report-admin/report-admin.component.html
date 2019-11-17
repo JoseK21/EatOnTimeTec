@@ -1,0 +1,206 @@
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+  <p class="category">Report</p>
+  <!-- Nav tabs -->
+
+  <div class="card" style="background-color: transparent;" data-tabs-color="orange">
+    <div class="nav-tabs-navigation">
+      <div class="nav-tabs-wrapper">
+        <ngb-tabset [justify]="'center'" class="text-center">
+          <!-- Airlines -->
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="getReportAirlines()">
+                <i class="now-ui-icons files_single-copy-04"></i> Airlines
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container row">
+
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id Airline</th>
+                        <th scope="col">Id Flight</th>
+                        <th scope="col">Tickets sold</th>
+                        <th scope="col">Total amount $</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of json_array">
+                        <td>{{item.idAirline}}</td>
+                        <td>{{item.id_flight}}</td>
+                        <td>{{item.sales}}</td>
+                        <td>{{item.total}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <!-- Tickets purchased -->
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="getTicketsPurchased()">
+                <i class="now-ui-icons shopping_tag-content"></i> Tickets purchased
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container row">
+                <!-- Table -->
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name Passenger</th>
+                        <th scope="col">Tickets</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of rages_">
+                        <td>{{item.id_user}}</td>
+                        <td>{{item.name}}</td>
+                        <td>[{{item.min}},{{item.max}}]</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <!-- Most visited destinations -->
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="getMostVisitedDestinations()">
+                <i class="now-ui-icons location_world"></i> Most visited destinations
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container row">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Arrival</th>
+                        <th scope="col">Passenger amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of top_; let i = index">
+                        <td>i</td>
+                        <td>{{item._id.destination}}</td>
+                        <td>{{item.count}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+
+          <!-- Purchase operations -->
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div>
+                <i class="now-ui-icons shopping_credit-card"></i> Purchase operations
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <br>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <form class="form" [formGroup]="passengerForm" (ngSubmit)="onSubmit_IdPassenger()">
+                      <label>Id Passenger</label>
+                      <input type="text" class="form-control" formControlName="id_user"
+                        [ngClass]="{ 'is-invalid': submitted_p && p.id_user.errors }">
+                      <button class="btn btn-block btn-sm">Filter</button>
+                    </form>
+                  </div>
+                  <div class="col-sm-6">
+                    <form class="form" [formGroup]="datesForm" (ngSubmit)="onSubmit_Dates()">
+                      <div class="row">
+                        <div class="col-6">
+                          <label>Date of departure</label>
+                          <input type="date" min="2000-01-01" max="9999-12-12" class="form-control"
+                            formControlName="date_departure"
+                            [ngClass]="{ 'is-invalid': submitted_d && d.date_departure.errors }" id="date_departure_"
+                            #date_departure_ (change)="set_min(date_departure_.value)">
+                        </div>
+                        <div class="col-6">
+                          <label>Date of arrival</label>
+                          <input type="date" min="2000-01-01" max="9999-12-12" class="form-control"
+                            formControlName="date_arrival"
+                            [ngClass]="{ 'is-invalid': submitted_d && d.date_arrival.errors }" id="date_arrival_"
+                            #date_arrival_ (change)="set_max(date_arrival_.value)">
+                        </div>
+                      </div>
+                      <button class="btn btn-block btn-sm">Filter</button>
+                    </form>
+                  </div>
+                  <div class="col-sm-3">
+                    <form class="form" [formGroup]="statusForm" (ngSubmit)="onSubmit_Status()">
+                      <label>Status</label>
+                      <select class="form-control form-control-sm" formControlName="status"
+                        [ngClass]="{ 'is-invalid': submitted_s && s.status.errors }">
+                        <option></option>
+                        <option *ngFor="let item of status_">{{item}}</option>
+                      </select>
+                      <button class="btn btn-block btn-sm">Filter</button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <!-- Top Passenger -->
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div>
+                <i class="now-ui-icons business_chart-bar-32"></i> Top 3 Passengers
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <br>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <blockquote>
+                      <p class="blockquote ">
+                        {{name_1}}
+                      </p>
+                    </blockquote>
+                  </div>
+                  <div class="col-sm">
+                    <blockquote>
+                      <p class="blockquote ">
+                        {{name_2}}
+                      </p>
+                    </blockquote>
+                  </div>
+                  <div class="col-sm">
+                    <blockquote>
+                      <p class="blockquote ">
+                        {{name_3}}
+                      </p>
+                    </blockquote>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>

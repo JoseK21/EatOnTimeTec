@@ -1,0 +1,53 @@
+<br><br><br>
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+
+  <br>
+
+  <form class="form" [formGroup]="readForm" (ngSubmit)="onSubmit_Read()">
+    <div class="row">
+      <div class="col-sm">
+        <label>Id Flight</label>
+        <input type="text" class="form-control" formControlName="id_flight"
+          [ngClass]="{ 'is-invalid': submitted_r && r.id_flight.errors }">
+        <div *ngIf="submitted_r && r.id_flight.errors" class="invalid-feedback">
+          <div *ngIf="r.id_flight.errors.required">Id Flight is required</div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <label>Id Passenger</label>
+        <input type="text" class="form-control" formControlName="id_user"
+          [ngClass]="{ 'is-invalid': submitted_r && r.id_user.errors }">
+        <div *ngIf="submitted_r && r.id_user.errors" class="invalid-feedback">
+          <div *ngIf="r.id_user.errors.required">Id Passenger is required</div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <label>Ticket Code</label>
+        <input type="text" class="form-control" formControlName="_id"
+          [ngClass]="{ 'is-invalid': submitted_r && r._id.errors }">
+        <div *ngIf="submitted_r && r._id.errors" class="invalid-feedback">
+          <div *ngIf="r._id.errors.required">Ticket Code is required</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <button class="btn btn-info btn-block btn-round">
+      <i class="now-ui-icons "></i> Search
+    </button>
+  </form>
+  <br>
+
+ <!--  <div class="row">
+    <div class="col-sm">
+      <label>Status</label>
+      <select class="form-control form-control-sm" formControlName="status"
+        [ngClass]="{ 'is-invalid': submitted_c && c.status.errors }">
+        <option>S1</option>
+      </select>
+      <div *ngIf="submitted_c && c.status.errors" class="invalid-feedback">
+        <div *ngIf="c.status.errors.required">Status is required</div>
+      </div>
+    </div>
+    <br>
+  </div> -->
+</div>

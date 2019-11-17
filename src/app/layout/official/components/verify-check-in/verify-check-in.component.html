@@ -1,0 +1,104 @@
+<br><br><br>
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+
+  <!-- <div class="card" style="background-color: transparent;" data-tabs-color="orange">
+    <div class="nav-tabs-navigation">
+      <div class="nav-tabs-wrapper"> -->
+  <!-- CRUD -->
+
+  <div class="container">
+    <form class="form" [formGroup]="readForm" (ngSubmit)="onSubmit_Read()">
+      <br>
+      <div class="row">
+        <div class="col-sm">
+          <label>Id Passenger</label>
+          <input type="text" class="form-control" formControlName="id_user"
+          [ngClass]="{ 'is-invalid': submitted_r && r.id_user.errors }">
+          <div *ngIf="submitted_r && r.id_user.errors" class="invalid-feedback">
+            <div *ngIf="r.id_user.errors.required">Id Passenger is required</div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <label>Ticket Code</label>
+          <input type="text" class="form-control" formControlName="_id"
+            [ngClass]="{ 'is-invalid': submitted_r && r._id.errors }">
+          <div *ngIf="submitted_r && r._id.errors" class="invalid-feedback">
+            <div *ngIf="r._id.errors.required">Ticket Code is required</div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <button class="btn btn-info btn-block btn-round">
+          <i class="now-ui-icons "></i> Search
+        </button>
+      <br>
+    </form>
+  </div>
+
+  <!-- Read -->
+  <!--  <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="forms_Reset()">
+                <i class="now-ui-icons ui-1_zoom-bold"></i> Read
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container">
+                <form class="form" [formGroup]="readForm" (ngSubmit)="onSubmit_Read()">
+                  <br>
+                  <div class="row">
+                    <div class="col-sm">
+                      <label>Id Flight</label>
+                      <select class="form-control form-control-sm" formControlName="id"
+                        [ngClass]="{ 'is-invalid': submitted_r && r.id.errors }">
+                        <option>I_C_1</option>
+                      </select>
+                      <div *ngIf="submitted_r && r.id.errors" class="invalid-feedback">
+                        <div *ngIf="r.id.errors.required">Id Flight is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Origin</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Itinerary</th>
+                            <th scope="col">Price $</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Maximum capacity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>AWS2</td>
+                            <td>Costa Rica</td>
+                            <td>Madrid</td>
+                            <td>20 vasos, 10 cucharas, 2 pollos
+                              ........................................................fdf </td>
+                            <td>2000</td>
+                            <td>Active</td>
+                            <td>56</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <br>
+                  <button class="btn btn-info btn-block btn-round">
+                    <i class="now-ui-icons "></i> Search
+                  </button>
+                  <br>
+                </form>
+              </div>
+            </ng-template>
+          </ngb-tab> -->
+
+  <!--   </div>
+    </div>
+  </div> -->
+</div>

@@ -1,0 +1,186 @@
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+  <!-- <p class="category">Report</p>  <br> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <form class="form" [formGroup]="datesForm" (ngSubmit)="onSubmit_Dates()">
+          <div class="row">
+            <div class="col-6">
+              <label>Date of departure</label>
+              <input type="date" min="2000-01-01" max="9999-12-12" class="form-control" formControlName="date_departure"
+                [ngClass]="{ 'is-invalid': submitted_dates && dates.date_departure.errors }" id="date_departure_"
+                #date_departure_ (change)="set_min(date_departure_.value)">
+              <!-- <div *ngIf="submitted_dates && dates.date_departure.errors" class="invalid-feedback">
+                <div *ngIf="dates.date_departure.errors.required">Date of departure is required</div>
+              </div> -->
+            </div>
+
+            <div class="col-6">
+              <label>Date of arrival</label>
+              <input type="date" min="2000-01-01" max="9999-12-12" class="form-control" formControlName="date_arrival"
+                [ngClass]="{ 'is-invalid': submitted_dates && dates.date_arrival.errors }" id="date_arrival_"
+                #date_arrival_ (change)="set_max(date_arrival_.value)">
+              <!-- <div *ngIf="submitted_dates && dates.date_arrival.errors" class="invalid-feedback">
+                <div *ngIf="dates.date_arrival.errors.required">Date of arrival is required</div>
+              </div> -->
+            </div>
+            <button class="btn btn-block btn-sm">Filter</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-3">
+        <form class="form" [formGroup]="statusForm" (ngSubmit)="onSubmit_Status()">
+          <label>Status</label>
+          <select class="form-control form-control-sm" formControlName="status"
+            [ngClass]="{ 'is-invalid': submitted_status && status.status.errors }">
+            <option></option>
+            <option *ngFor="let item of status_">{{item}}</option>
+          </select>
+          <!-- <div *ngIf="submitted_status && status.status.errors" class="invalid-feedback">
+            <div *ngIf="status.status.errors.required">Status is required</div>
+          </div> -->
+          <button class="btn btn-block btn-sm">Filter</button>
+
+        </form>
+      </div>
+
+      <!-- size="3" -->
+      <div class="col-3">
+        <form class="form" [formGroup]="userForm" (ngSubmit)="onSubmit_User()">
+          <label>Name Passenger</label>
+          <select class="form-control form-control-sm" formControlName="name_user"
+            [ngClass]="{ 'is-invalid': submitted_user && user.name_user.errors }">
+            <option></option>
+            <option *ngFor="let item of names_">{{item}}</option>
+          </select>
+          <button class="btn btn-block btn-sm">Filter</button>
+        </form>
+      </div>
+    </div>
+    <div class="container">
+
+      <!-- Table Dates -->
+      <div class="row" *ngIf="num_table == 1">
+        <div class="table-responsive" style="display: block; height: 300px; overflow-y: scroll">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id Flight</th>
+                <th scope="col">Name</th>
+                <th scope="col">Origin</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Date of Departure</th>
+                <th scope="col">Date of Arrival</th>
+                <th scope="col">Restrictions</th>
+                <th scope="col">Features</th>
+                <th scope="col">Itinerary</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Max Capacity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of flight_dates">
+                <td>{{item.id_flight}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.origin}}</td>
+                <td>{{item.destination}}</td>
+                <td>{{item.date_departure.substring(0,10)}}</td>
+                <td>{{item.date_arrival.substring(0,10)}}</td>
+                <td>{{item.restrictions}}</td>
+                <td>{{item.features}}</td>
+                <td>{{item.itinerary}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.max_capacity}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Table Status -->
+      <div class="row" *ngIf="num_table == 2">
+        <!-- Table -->
+        <div class="table-responsive" style="display: block; height: 300px; overflow-y: scroll">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id Flight</th>
+                <th scope="col">Name</th>
+                <th scope="col">Origin</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Date of Departure</th>
+                <th scope="col">Date of Arrival</th>
+                <th scope="col">Restrictions</th>
+                <th scope="col">Features</th>
+                <th scope="col">Itinerary</th>
+                <th scope="col">Price</th>
+                <th scope="col">Capacity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of flight_status;">
+                <td>{{item.id_flight}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.origin}}</td>
+                <td>{{item.destination}}</td>
+                <td>{{item.date_departure.substring(0,10)}}</td>
+                <td>{{item.date_arrival.substring(0,10)}}</td>
+                <td>{{item.restrictions}}</td>
+                <td>{{item.features}}</td>
+                <td>{{item.itinerary}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.max_capacity}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Table Name Passenger -->
+      <div class="row" *ngIf="num_table == 3">
+        <!-- Table -->
+        <div class="table-responsive" style="display: block; height: 300px; overflow-y: scroll">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id Flight</th>
+                <th scope="col">Name</th>
+                <th scope="col">Origin</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Date of Departure</th>
+                <th scope="col">Date of Arrival</th>
+                <th scope="col">Restrictions</th>
+                <th scope="col">Features</th>
+                <th scope="col">Itinerary</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Max Capacity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of flight_userName">
+                <td>{{item.id_flight}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.origin}}</td>
+                <td>{{item.destination}}</td>
+                <td>{{item.date_departure.substring(0,10)}}</td>
+                <td>{{item.date_arrival.substring(0,10)}}</td>
+                <td>{{item.restrictions}}</td>
+                <td>{{item.features}}</td>
+                <td>{{item.itinerary}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.max_capacity}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

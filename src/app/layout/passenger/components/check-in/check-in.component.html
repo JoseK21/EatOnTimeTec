@@ -1,0 +1,43 @@
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+  <!-- <p class="category">Buy Tickets</p> -->
+  <!-- Nav tabs -->
+  <br>
+
+  <div class="container-fluid " style="text-align:left">
+    <form class="form" [formGroup]="Form" (ngSubmit)="onSubmit()">
+      <br>
+      <div class="row">
+        <div class="col-sm">
+          <label>Identification Number (ID)</label>
+          <input type="text" class="form-control" formControlName="id_user"
+            [ngClass]="{ 'is-invalid': submitted && c.id_user.errors }">
+          <div *ngIf="submitted && c.id_user.errors" class="invalid-feedback">
+            <div *ngIf="c.id_user.errors.required">Id is required</div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <label>Id Flight</label>
+          <input type="text" class="form-control" formControlName="id_flight"
+            [ngClass]="{ 'is-invalid': submitted && c.id_flight.errors }">
+          <div *ngIf="submitted && c.id_flight.errors" class="invalid-feedback">
+            <div *ngIf="c.id_flight.errors.required">Id Flight is required</div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <label>Ticket Code</label>
+          <input type="text" class="form-control" formControlName="_id"
+            [ngClass]="{ 'is-invalid': submitted && c._id.errors }">
+          <div *ngIf="submitted && c._id.errors" class="invalid-feedback">
+            <div *ngIf="c._id.errors.required">Ticket Code is required</div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+
+      <button class="btn btn-sm btn-primary btn-block">
+        Check In
+      </button>
+    </form>
+  </div>
+</div>

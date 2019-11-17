@@ -1,0 +1,93 @@
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+  <br>
+  <div class="container-fluid " style="text-align:left">
+    <form class="form" [formGroup]="Form" (ngSubmit)="onSubmit()">
+      <br>
+      <div class="row">
+        <div class="col-sm">
+          <label>Origin</label>
+          <select class="form-control form-control-sm" formControlName="origin"
+            [ngClass]="{ 'is-invalid': submitted && b.origin.errors }" #origin
+            (change)="filter_array_origin(origin.value)">
+            <option></option>
+            <option *ngFor="let item of origin_">{{item}}</option>
+          </select>
+          <div *ngIf="submitted && b.origin.errors" class="invalid-feedback">
+            <div *ngIf="b.origin.errors.required">Origin is required</div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <label>Destination</label>
+          <select class="form-control form-control-sm" formControlName="destination"
+            [ngClass]="{ 'is-invalid': submitted && b.destination.errors }" #destination
+            (change)="filter_array_destination(destination.value)">
+            <option></option>
+            <option *ngFor="let item of destination_">{{item}}</option>
+          </select>
+          <div *ngIf="submitted && b.destination.errors" class="invalid-feedback">
+            <div *ngIf="b.destination.errors.required">Destination is required</div>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <label>Date of departure</label>
+          <input type="date" min="2000-01-01" max="9999-12-12" class="form-control" formControlName="date_departure"
+            [ngClass]="{ 'is-invalid': submitted && b.date_departure.errors }" id="date_departure_" #date_departure_
+            (change)="set_min(date_departure_.value)">
+          <div *ngIf="submitted && b.date_departure.errors" class="invalid-feedback">
+            <div *ngIf="b.date_departure.errors.required">Date of departure is required</div>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <label>Date of arrival</label>
+          <input type="date" min="2000-01-01" max="9999-12-12" class="form-control" formControlName="date_arrival"
+            [ngClass]="{ 'is-invalid': submitted && b.date_arrival.errors }" id="date_arrival_" #date_arrival_
+            (change)="set_max(date_arrival_.value)">
+          <div *ngIf="submitted && b.date_arrival.errors" class="invalid-feedback">
+            <div *ngIf="b.date_arrival.errors.required">Date of arrival is required</div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+
+      <button class="btn btn-sm btn-block btn-primary">
+        Search
+      </button>
+      <br>
+    </form>
+
+    <div class="row" *ngIf="json_response == true">
+      <!-- Table -->
+      <div class="table-responsive" style="display: block; height: 300px; overflow-y: scroll">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id Flight</th>
+              <th scope="col">Date of departure</th>
+              <th scope="col">Date of arrival</th>
+              <th scope="col">Restrictions</th>
+              <th scope="col">Features</th>
+              <th scope="col">Price $</th>
+              <th scope="col">Buy</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of json_buy">
+              <td>{{item.id_flight}}</td>
+              <td>{{item.date_departure.substring(0,10)}}</td>
+              <td>{{item.date_arrival.substring(0,10)}}</td>
+              <td>{{item.restrictions}}</td>
+              <td>{{item.features}}</td>
+              <td>{{item.price}}</td>
+              <td><button class="btn btn-sm" (click)="clickFlight(item)">Continue</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,225 @@
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+  <p class="category">Airline</p>
+  <!-- Nav tabs -->
+
+  <div class="card" style="background-color: transparent;" data-tabs-color="orange">
+    <div class="nav-tabs-navigation">
+      <div class="nav-tabs-wrapper">
+        <ngb-tabset [justify]="'center'" class="text-center">
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="forms_Reset()">
+                <i class="now-ui-icons ui-1_simple-add"></i> Create
+              </div>
+
+            </ng-template>
+            <ng-template ngbTabContent>
+              <!-- identificador, nombre, países en los que realiza vuelos.-->
+              <div class="container" style="text-align:left">
+                <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmit_Create()">
+                  <br>
+                  <div class="row">
+                    <div class="col-sm">
+                      <label>Id Airline</label>
+                      <input type="text" class="form-control" formControlName="id_airline"
+                        [ngClass]="{ 'is-invalid': submitted_c && c.id_airline.errors }" style="color:rgb(93, 93, 93);">
+                      <div *ngIf="submitted_c && c.id_airline.errors" class="invalid-feedback">
+                        <div *ngIf="c.id_airline.errors.required">Id Airline is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <label>Name Airline</label>
+                      <input type="text" class="form-control" formControlName="name_airline"
+                        [ngClass]="{ 'is-invalid': submitted_c && c.name_airline.errors }">
+                      <div *ngIf="submitted_c && c.name_airline.errors" class="invalid-feedback">
+                        <div *ngIf="c.name_airline.errors.required">Name Airline is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <label>Name Airport</label>
+                      <select class="form-control form-control-sm" formControlName="name_airport"
+                        [ngClass]="{ 'is-invalid': submitted_c && c.name_airport.errors }">
+                        <option></option>
+                        <option *ngFor="let item of names_airport">{{item}}</option>
+                      </select>
+                      <div *ngIf="submitted_c && c.name_airport.errors" class="invalid-feedback">
+                        <div *ngIf="c.name_airport.errors.required">Name Airport is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm">
+                      <label>Countries</label>
+                      <div class="row container">
+                        <div class="custom-control custom-checkbox" *ngFor="let item of countries">
+                          <input type="checkbox" class="custom-control-input" [id]="item" (click)="arrayCountry(item)">
+                          <label class="custom-control-label" [for]="item">{{item}}</label>
+                          &nbsp; &nbsp;
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <button class="btn btn-success btn-block btn-round">
+                    Create
+                  </button>
+                  <br>
+                </form>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="forms_Reset()">
+                <i class="now-ui-icons ui-1_zoom-bold"></i> Read
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container">
+                <form class="form" [formGroup]="readForm" (ngSubmit)="onSubmit_Read()">
+                  <br>
+                  <div class="row">
+                    <div class="col-sm">
+                      <label>Id Airline</label>
+                      <select class="form-control form-control-sm" formControlName="id_airline"
+                        [ngClass]="{ 'is-invalid': submitted_r && r.id_airline.errors }">
+                        <option></option>
+                        <option *ngFor="let item of id_airlines">{{item}}</option>
+                      </select>
+                      <div *ngIf="submitted_r && r.id_airline.errors" class="invalid-feedback">
+                        <div *ngIf="r.id_airline.errors.required">Id Airline is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row" *ngIf="json_response==true">
+                    <!-- Table -->
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name Airline</th>
+                            <th scope="col">Name Airport</th>
+                            <th scope="col">Countries</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{airlines_read.name_airline}}</td>
+                            <td>{{airlines_read.name_airport}}</td>
+                            <td>{{airlines_read.country}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <br>
+                  <button class="btn btn-info btn-block btn-round">
+                    Search
+                  </button>
+                  <br>
+                </form>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="forms_Reset()">
+                <i class="now-ui-icons ui-2_settings-90"></i> Update
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container" style="text-align:left">
+                <form class="form" [formGroup]="updateForm" (ngSubmit)="onSubmit_Update()">
+                  <br>
+                  <div class="row">
+                    <div class="col-sm">
+                      <label>Id Airline</label>
+                      <select class="form-control form-control-sm" formControlName="id_airline"
+                        [ngClass]="{ 'is-invalid': submitted_u && u.id_airline.errors }" #id_airline
+                        (change)="onchangeUpdate(id_airline.value)">
+                        <option></option>
+                        <option *ngFor="let item of id_airlines">{{item}}</option>
+                      </select>
+                      <div *ngIf="submitted_u && u.id_airline.errors" class="invalid-feedback">
+                        <div *ngIf="u.id_airline.errors.required">Id Airline is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-sm">
+                      <label>Name Airline</label>
+                      <input type="text" class="form-control" formControlName="name_airline"
+                        [ngClass]="{ 'is-invalid': submitted_u && u.name_airline.errors }">
+                      <div *ngIf="submitted_u && u.name_airline.errors" class="invalid-feedback">
+                        <div *ngIf="u.name_airline.errors.required">Name Airline is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <label>Name Airport</label>
+                      <select class="form-control form-control-sm" formControlName="name_airport"
+                        [ngClass]="{ 'is-invalid': submitted_u && u.name_airport.errors }">
+                        <option></option>
+                        <option *ngFor="let item of names_airport">{{item}}</option>
+                      </select>
+                      <div *ngIf="submitted_u && u.name_airport.errors" class="invalid-feedback">
+                        <div *ngIf="u.name_airport.errors.required">Name Airport is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <label>Countries</label>
+                  <div class="row container">
+                    <div class="custom-control custom-checkbox" *ngFor="let item of countries">
+                      <input type="checkbox" class="custom-control-input" [id]="item+'__'" (click)="arrayCountry(item)" [checked]>
+                      <label class="custom-control-label" [for]="item+'__'">{{item}}</label>
+                      &nbsp; &nbsp;
+                    </div>
+                  </div>
+                  <br>
+                  <button class="btn btn-warning btn-block btn-round">
+                    Update
+                  </button>
+                  <br>
+                </form>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="forms_Reset()">
+                <i class="now-ui-icons ui-1_simple-delete"></i> Delete
+              </div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="container">
+                <form class="form" [formGroup]="deleteForm" (ngSubmit)="onSubmit_Delete()">
+                  <br>
+                  <div class="row">
+                    <div class="col-sm">
+                      <label>Id Airline</label>
+                      <select class="form-control form-control-sm" formControlName="id_airline"
+                        [ngClass]="{ 'is-invalid': submitted_d && d.id_airline.errors }">
+                        <option></option>
+                        <option *ngFor="let item of id_airlines">{{item}}</option>
+                      </select>
+                      <div *ngIf="submitted_d && d.id_airline.errors" class="invalid-feedback">
+                        <div *ngIf="d.id_airline.errors.required">Id Airline is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <button class="btn btn-danger btn-block btn-round">
+                    Delete
+                  </button>
+                  <br>
+                </form>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>

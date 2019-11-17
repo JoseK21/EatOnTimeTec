@@ -1,0 +1,52 @@
+<br><br><br>
+<div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
+
+  <br>
+
+  <form class="form" [formGroup]="readForm" (ngSubmit)="onSubmit_Read()">
+    <div class="row">
+      <div class="col-sm">
+        <label>Id Passenger</label>
+        <input type="text" class="form-control" formControlName="id_user"
+          [ngClass]="{ 'is-invalid': submitted_r && r.id_user.errors }">
+        <div *ngIf="submitted_r && r.id_user.errors" class="invalid-feedback">
+          <div *ngIf="r.id_user.errors.required">Id Passenger is required</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <button class="btn btn-info btn-block btn-round">
+      <i class="now-ui-icons "></i> Search
+    </button>
+  </form>
+  <br>
+  <div class="row">
+    <div class="col-sm">
+      <label>Full Name</label>
+      <input type="text" class="form-control" id="name" disabled>
+    </div>
+    <div class="col-sm">
+      <label>Date of Birth</label>
+      <input type="date" class="form-control " id="date_birth" disabled>
+    </div>
+    <div class="col-sm">
+      <label>Phone</label>
+      <input type="text" class="form-control" id="phone" disabled>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <label>Nationality</label>
+      <input type="text" class="form-control" id="nationality" disabled>
+    </div>
+    <div class="col-sm">
+      <label>Residence</label>
+      <input type="text" class="form-control" id="residence" disabled>
+    </div>
+    <div class="col-sm">
+      <label>Email</label>
+      <input type="text" class="form-control" id="email" disabled>
+    </div>
+  </div>
+  <br>
+</div>

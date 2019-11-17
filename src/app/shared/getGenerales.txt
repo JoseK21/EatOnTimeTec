@@ -1,0 +1,167 @@
+/* Obtiene las nacionalidades */
+  nationalities = [];
+  getNationalities() {
+    console.log('getNationalities()');
+    this.http
+      .get<any>(urls.api + 'getNationalities', cors.httpOptions)
+      .subscribe(data => {
+        /* Falta condición de error */
+        let jsonNationalities = JSON.parse(JSON.stringify(data.resp));
+        for (let index = 0; index < jsonNationalities.length; index++) {
+          let tem = JSON.parse(JSON.stringify(jsonNationalities[index]));
+
+          this.nationalities.push(tem.nationality);
+        }
+      });
+    console.log(this.nationalities);
+  }
+
+
+----------------------------------------------------------------------------------------------------
+ get_residence(nac) {
+    this.getResidences(nac);
+  }
+----------------------------------------------------------------------------------------------------
+  /* getResidences */
+  residences = [];
+  getResidences(nacionality: string) {
+    console.log('getResidences()');
+    this.http
+      .get<any>(urls.api + 'getResidences/' + nacionality, cors.httpOptions)
+      .subscribe(data => {
+        if (data.jsonResidences) {
+          this.residences = JSON.parse(JSON.stringify(data.jsonResidences)).residence;
+        } else {
+          console.log("Error al cargar las residencias");
+        }
+      });
+  }
+
+
+
+----------------------------------------------------------------------------------------------------
+
+origin_= [];
+  destination_= [];
+  countries= [];
+
+  getCountries() {
+    console.log('getCountries()');
+    this.http
+      .get<any>(urls.api + 'getCountries', cors.httpOptions)
+      .subscribe(data => {
+        if (data.jsonResponse) {
+          this.countries = JSON.parse(JSON.stringify(data.jsonResponse)).country;
+          this.origin_ = this.countries;
+          this.destination_ = this.countries;
+        } else {
+          console.log("Error al cargar los paises (origin&destination)");
+        }
+      });
+  }
+  
+----------------------------------------------------------------------------------------------------
+
+  filter_array_origin(invisible_element) {
+    var filtered = this.countries.filter(function (value, index, arr) {
+      return value != invisible_element;
+    });
+    this.destination_ = filtered;
+  }
+
+  filter_array_destination(invisible_element) {
+    var filtered = this.countries.filter(function (value, index, arr) {
+      return value != invisible_element;
+    });
+    this.origin_ = filtered;
+  }
+
+----------------------------------------------------------------------------------------------------
+
+id_flight = [];
+
+  getIdsFlights() {
+    console.log('getIdsFlights()');
+    this.http
+      .get<any>(urls.api + 'getIdsFlights', cors.httpOptions)
+      .subscribe(data => {
+        if (data.resp) {
+          let jsonIdsFlights = JSON.parse(JSON.stringify(data.resp));
+          for (let index = 0; index < jsonIdsFlights.length; index++) {
+            let tem = JSON.parse(JSON.stringify(jsonIdsFlights[index]));
+            this.id_flight.push(tem.id_flight);
+          }
+        } else {
+          console.log("Error al cargar los ids flight");
+        }
+      });
+  }
+
+  ----------------------------------------------------------------------------------------------------
+  
+ id_airport = [];
+  getIdsAirport() {
+    console.log('getIdsAirport()');
+    this.id_airport = [];
+    this.http
+      .get<any>(urls.api + 'getIdsAirports', cors.httpOptions)
+      .subscribe(data => {
+        if (data.resp) {
+          let jsonIdsAirport = JSON.parse(JSON.stringify(data.resp));
+          for (let index = 0; index < jsonIdsAirport.length; index++) {
+            let tem = JSON.parse(JSON.stringify(jsonIdsAirport[index]));
+            this.id_airport.push(tem.id_airport);
+          }
+        } else {
+          console.log("Error al cargar los ids airport");
+        }
+      });
+  }
+
+  ----------------------------------------------------------------------------------------------------
+
+  work_area: [];
+  getWorkAreas() {
+    console.log('getWorkAreas()');
+    this.http
+      .get<any>(urls.api + 'getWorkAreas', cors.httpOptions)
+      .subscribe(data => {
+        if (data.jsonResponse) {
+          this.work_area = JSON.parse(JSON.stringify(data.jsonResponse)).work_area;
+        } else {
+          console.log("Error al cargar las areas de trabajo");
+        }
+      });
+  }
+
+  ----------------------------------------------------------------------------------------------------
+
+  type_official: [];
+  getTypeOfficial() {
+    console.log('getTypeOfficial()');
+    this.http
+      .get<any>(urls.api + 'getTypeOfficial', cors.httpOptions)
+      .subscribe(data => {
+        if (data.jsonResponse) {
+          this.type_official = JSON.parse(JSON.stringify(data.jsonResponse)).type_official;
+        } else {
+          console.log("Error al cargar los tipos de funcionarios");
+        }
+      });
+  }
+
+----------------------------------------------------------------------------------------------------
+  exports.getIdsAirports = (req, res, next) => {
+  Airport.find({}, { id_airport: 1, _id: 0 }, (err, resp) => {   
+    if (err) return res.status(500).send('Server error!');
+    if (!resp) {
+      res.status(409).send({
+        message: 'Something is wrong'
+      });
+    } else {
+      res.send({
+        resp
+      });
+    }
+  });
+}
