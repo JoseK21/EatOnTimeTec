@@ -4,9 +4,22 @@
       <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <div class="header header-primary text-center">
           <br><br>
-          <img src="assets/img/user.png" width="150" height="140" alt="logoTECPlane">
-          <h3>Registro</h3>
+          <div class="row align-items-center  justify-content-start">
+            <div class="col-4 align-self-center">
+              <img src="assets/default-logo.png" width="100" height="93.333" alt="logoTECPlane">
+            </div>
+            <div class="col align-self-end" style="text-align: left;">
+              <h3>
+                <span class="align-middle">Registro</span>
+              </h3>
+            </div>
+            <div class="col-4 align-self-center">
+              <p></p>
+              <p></p>
+            </div>
+          </div>
         </div>
+        <br>
         <div class="content" style="text-align:left">
 
           <div class="row">
@@ -17,6 +30,7 @@
                   formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                 <div *ngIf="submitted && f.email.errors" class="e_input">
                   <div *ngIf="f.email.errors.required">El correo es requerido</div>
+                  <div *ngIf="f.email.errors.email">Formato de correo invalido</div>
                 </div>
               </div>
             </div>
@@ -32,7 +46,7 @@
                   <option *ngFor="let item of nationalities">{{item}}</option>
                 </select>
                 <div *ngIf="submitted && f.nationality.errors" class="e_input">
-                  <div *ngIf="f.nationality.errors.required">Nationality es requerido</div>
+                  <div *ngIf="f.nationality.errors.required">La Provincia es requerida</div>
                 </div>
               </div>
             </div>
@@ -42,7 +56,7 @@
             <div class="col-sm">
               <label>Teléfono</label>
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-                <input type="text" class="form-control" (focus)="focus=true" (blur)="focus=false"
+                <input type="number" min="1" class="form-control" (focus)="focus=true" (blur)="focus=false"
                   formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                 <div *ngIf="submitted && f.phone.errors" class="e_input">
                   <div *ngIf="f.phone.errors.required">El teléfono es requerido</div>
@@ -54,10 +68,10 @@
           <div class="row">
             <div class="col-sm">
               <label>Gustos</label>
-              <div class="form-group" >
-                <div class="form-check-inline" *ngFor = "let g of gustos">
+              <div class="form-group">
+                <div class="form-check-inline" *ngFor="let g of gustos">
                   <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="optradio">{{g}}
+                    <input type="checkbox" class="form-check-input" name="optradio">{{g}}
                   </label>
                 </div>
               </div>
@@ -68,7 +82,8 @@
         </div>
         <div class="footer text-center">
           <label> Para completar el registro se necesita asociar una cuenta de Facebook</label>
-          <button class="btn btn-primary btn-round btn-block"> <i class="fab fa-facebook"></i> Requistrarses</button>
+          <button class="btn btn-primary btn-round btn-block"> <i class="fab fa-facebook-square fa-lg"></i>
+            Reguistrarse</button>
         </div>
       </form>
     </div>

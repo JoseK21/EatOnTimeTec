@@ -37,7 +37,7 @@ export class SignUpComponent implements OnInit {
       nationality: ['', Validators.required],
       residence: ['', Validators.required],
       phone: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
@@ -46,6 +46,15 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+
+
+    Swal.fire({
+      position: 'center',
+      title: 'Facebook Window',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    
     if (this.signUpForm.invalid) {
       console.log("registerForm.invalid");
       return;
