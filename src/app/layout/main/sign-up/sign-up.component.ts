@@ -20,6 +20,9 @@ export class SignUpComponent implements OnInit {
   focus;
   focus1;
 
+  gustos = ["Pastas", "Vegeterariano", "Carnes", "Ensaladas"];
+  
+
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {
