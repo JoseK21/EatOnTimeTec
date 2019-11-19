@@ -45,7 +45,7 @@ import { OfficialGuard, PassengerGuard, AdministratorGuard } from './shared/guar
 // Routes
 const routes: Routes = [
     // Redict 
-    { path: '', redirectTo: 'main', pathMatch: 'full' },
+    { path: '', redirectTo: 'passenger', pathMatch: 'full' },
     { path: 'administrator', redirectTo: 'administrator/welcome', pathMatch: 'full' },
     { path: 'passenger', redirectTo: 'passenger/welcome', pathMatch: 'full' },
     { path: 'official', redirectTo: 'official/welcome', pathMatch: 'full' },
@@ -72,13 +72,13 @@ const routes: Routes = [
         path: 'passenger',
         component: PassengerComponent,
         children: [
-            { path: 'tickets', component: BuyTicketsComponent, canActivate: [PassengerGuard] },
-            { path: 'checkIn', component: CheckInComponent, canActivate: [PassengerGuard] },
-            { path: 'passenger', component: CrudPassengerComponent , canActivate: [PassengerGuard] },
-            { path: 'report', component: ReportPassengerComponent , canActivate: [PassengerGuard] },
-            { path: 'welcome', component: WelcomePassengerComponent, canActivate: [PassengerGuard] }
+            { path: 'tickets', component: BuyTicketsComponent, /* canActivate: [PassengerGuard]  */},
+            { path: 'checkIn', component: CheckInComponent, /* canActivate: [PassengerGuard]  */},
+            { path: 'passenger', component: CrudPassengerComponent , /* canActivate: [PassengerGuard]  */},
+            { path: 'report', component: ReportPassengerComponent , /* canActivate: [PassengerGuard]  */},
+            { path: 'welcome', component: WelcomePassengerComponent, /* canActivate: [PassengerGuard]  */}
         ],
-        canActivate: [PassengerGuard]
+       // canActivate: [PassengerGuard]
     },
     {
         path: 'official',

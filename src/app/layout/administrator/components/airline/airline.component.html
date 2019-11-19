@@ -1,5 +1,5 @@
 <div class="col-md-12 ml-auto col-xl-12 mr-auto" style="background-color: transparent;">
-  <p class="category">Airline</p>
+  <p class="category">Menu</p>
   <!-- Nav tabs -->
 
   <div class="card" style="background-color: transparent;" data-tabs-color="orange">
@@ -9,7 +9,7 @@
           <ngb-tab>
             <ng-template ngbTabTitle>
               <div (click)="forms_Reset()">
-                <i class="now-ui-icons ui-1_simple-add"></i> Create
+                <i class="now-ui-icons ui-1_simple-add"></i> Agregar Platillo
               </div>
 
             </ng-template>
@@ -20,36 +20,47 @@
                   <br>
                   <div class="row">
                     <div class="col-sm">
-                      <label>Id Airline</label>
+                      <label>Nombre</label>
                       <input type="text" class="form-control" formControlName="id_airline"
                         [ngClass]="{ 'is-invalid': submitted_c && c.id_airline.errors }" style="color:rgb(93, 93, 93);">
                       <div *ngIf="submitted_c && c.id_airline.errors" class="invalid-feedback">
-                        <div *ngIf="c.id_airline.errors.required">Id Airline is required</div>
+                        <div *ngIf="c.id_airline.errors.required">Nombre is required</div>
                       </div>
                     </div>
                     <div class="col-sm">
-                      <label>Name Airline</label>
+                      <label>Precio</label>
                       <input type="text" class="form-control" formControlName="name_airline"
                         [ngClass]="{ 'is-invalid': submitted_c && c.name_airline.errors }">
                       <div *ngIf="submitted_c && c.name_airline.errors" class="invalid-feedback">
-                        <div *ngIf="c.name_airline.errors.required">Name Airline is required</div>
+                        <div *ngIf="c.name_airline.errors.required">Precio is required</div>
                       </div>
                     </div>
                     <div class="col-sm">
-                      <label>Name Airport</label>
+                      <label>Tiempo de preparación</label>
                       <select class="form-control form-control-sm" formControlName="name_airport"
                         [ngClass]="{ 'is-invalid': submitted_c && c.name_airport.errors }">
                         <option></option>
                         <option *ngFor="let item of names_airport">{{item}}</option>
                       </select>
                       <div *ngIf="submitted_c && c.name_airport.errors" class="invalid-feedback">
-                        <div *ngIf="c.name_airport.errors.required">Name Airport is required</div>
+                        <div *ngIf="c.name_airport.errors.required">Tiempo de preparación is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <label>Ingredientes</label>
+                      <select class="form-control form-control-sm" formControlName="name_airport"
+                        [ngClass]="{ 'is-invalid': submitted_c && c.name_airport.errors }">
+                        <option></option>
+                        <option *ngFor="let item of names_airport">{{item}}</option>
+                      </select>
+                      <div *ngIf="submitted_c && c.name_airport.errors" class="invalid-feedback">
+                        <div *ngIf="c.name_airport.errors.required">Ingredientes is required</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm">
-                      <label>Countries</label>
+                      <label>Calorias</label>
                       <div class="row container">
                         <div class="custom-control custom-checkbox" *ngFor="let item of countries">
                           <input type="checkbox" class="custom-control-input" [id]="item" (click)="arrayCountry(item)">

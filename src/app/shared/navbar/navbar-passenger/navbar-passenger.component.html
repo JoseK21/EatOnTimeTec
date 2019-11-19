@@ -1,10 +1,8 @@
-<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent" color-on-scroll="500">
+<nav class="navbar navbar-expand-lg bg-primary fixed-top " color-on-scroll="500">
   <div class="container">
 
     <div class="navbar-translate">
-      <a class="navbar-brand" routerLink="/passenger/welcome" placement="bottom">
-        TECPlane
-      </a>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
         aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"
         (click)="sidebarToggle()">
@@ -13,43 +11,35 @@
         <span class="navbar-toggler-bar bar3"></span>
       </button>
     </div>
-    <div class="collapse navbar-collapse" data-nav-image="assets/img/blurred-image-1.jpg" data-color="orange">
+    <div class="collapse navbar-collapse" data-color="orange">
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <div ngbDropdown class="dropdown">
-            <a routerLink="tickets" class="btn btn-primary btn-sm btn-round" role="button">
-              Buy Tickets
-            </a>
-          </div>
+            <button class="btn btn-neutral btn-round btn-sm" type="button" routerLink="/passenger/welcome">
+                <i class="now-ui-icons arrows-1_share-66"></i> Menú
+            </button>
         </li>
 
         <li class="nav-item">
-          <div ngbDropdown class="dropdown">
-            <a routerLink="checkIn" class="btn btn-primary btn-sm btn-round" role="button">
-              Check-In
-            </a>
-          </div>
+            <button class="btn btn-neutral btn-round btn-sm" type="button" routerLink="/passenger/welcome">
+                <i class="now-ui-icons arrows-1_share-66"></i> Orden
+            </button>
         </li>
 
         <li class="nav-item">
-          <div ngbDropdown class="dropdown">
-            <a routerLink="report" class="btn btn-primary btn-sm btn-round" role="button">
-                Report
-            </a>
-          </div>
+            <button class="btn btn-neutral btn-round btn-sm" type="button" routerLink="/passenger/welcome">
+                <i class="now-ui-icons arrows-1_share-66"></i> Estadisticas
+            </button>
         </li>
 
         <li class="nav-item">
-          <div ngbDropdown class="dropdown">
-            <a routerLink="passenger" class="btn btn-primary btn-sm btn-round" role="button">
-                Account
-            </a>
-          </div>
+            <button class="btn btn-neutral btn-round btn-sm" type="button" routerLink="/passenger/welcome">
+                <i class="now-ui-icons arrows-1_share-66"></i> Amigos
+            </button>
         </li>
         <li class="nav-item">
-            <button class="btn btn-neutral btn-round btn-sm" type="button" (click)="signOut()">
-                <i class="now-ui-icons arrows-1_share-66"></i> Sign Out
+            <button class="btn btn-neutral btn-round btn-sm" type="button" routerLink="/passenger/welcome">
+                <i class="now-ui-icons arrows-1_share-66"></i> Cuenta
             </button>
         </li>
       </ul>

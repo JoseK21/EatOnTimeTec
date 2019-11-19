@@ -75,7 +75,7 @@ import { AdministratorGuard, OfficialGuard, PassengerGuard } from './shared';
         ReportOfficialComponent,
         WelcomeOfficialComponent,
         WelcomePassengerComponent,
-        WelcomeAdministratorComponent
+        WelcomeAdministratorComponent,
     ],
     imports: [
         BrowserAnimationsModule,
