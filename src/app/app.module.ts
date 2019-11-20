@@ -46,7 +46,14 @@ import { WelcomePassengerComponent } from './layout/passenger/components/welcome
 
 // Guards -> Provider
 import { AdministratorGuard, OfficialGuard, PassengerGuard } from './shared';
-
+import { UsuarioComponent } from './layout/usuario/usuario.component';
+import { CuentaComponent } from './layout/usuario/components/cuenta/cuenta.component';
+import { EstadisticasComponent } from './layout/usuario/components/estadisticas/estadisticas.component';
+import { MenuComponent } from './layout/usuario/components/menu/menu.component';
+import { AmigosComponent } from './layout/usuario/components/amigos/amigos.component';
+import { OrdenComponent } from './layout/usuario/components/orden/orden.component';
+import { NavbarUsuarioComponent } from './shared/navbar/navbar-usuario/navbar-usuario.component';
+import { OrdenProcesoComponent } from './layout/usuario/components/orden-proceso/orden-proceso.component';
 
 
 @NgModule({
@@ -76,6 +83,14 @@ import { AdministratorGuard, OfficialGuard, PassengerGuard } from './shared';
         WelcomeOfficialComponent,
         WelcomePassengerComponent,
         WelcomeAdministratorComponent,
+        UsuarioComponent,
+        CuentaComponent,
+        EstadisticasComponent,
+        MenuComponent,
+        AmigosComponent,
+        OrdenComponent,
+        NavbarUsuarioComponent,
+        OrdenProcesoComponent
     ],
     imports: [
         BrowserAnimationsModule,

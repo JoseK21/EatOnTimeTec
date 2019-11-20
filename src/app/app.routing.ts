@@ -41,18 +41,41 @@ import { WelcomePassengerComponent } from './layout/passenger/components/welcome
 
 // Guards
 import { OfficialGuard, PassengerGuard, AdministratorGuard } from './shared/guard';
+import { MenuComponent } from './layout/usuario/components/menu/menu.component';
+import { OrdenComponent } from './layout/usuario/components/orden/orden.component';
+import { EstadisticasComponent } from './layout/usuario/components/estadisticas/estadisticas.component';
+import { AmigosComponent } from './layout/usuario/components/amigos/amigos.component';
+import { CuentaComponent } from './layout/usuario/components/cuenta/cuenta.component';
+import { UsuarioComponent } from './layout/usuario/usuario.component';
+import { OrdenProcesoComponent } from './layout/usuario/components/orden-proceso/orden-proceso.component';
 
 // Routes
 const routes: Routes = [
     // Redict 
-    { path: '', redirectTo: 'passenger', pathMatch: 'full' },
+    { path: '', redirectTo: 'inicio_sesion', pathMatch: 'full' },
     { path: 'administrator', redirectTo: 'administrator/welcome', pathMatch: 'full' },
-    { path: 'passenger', redirectTo: 'passenger/welcome', pathMatch: 'full' },
+    { path: 'usuario', redirectTo: 'usuario/menu', pathMatch: 'full' },
     { path: 'official', redirectTo: 'official/welcome', pathMatch: 'full' },
 
     /* Login:main & SignUp */
-    { path: 'main', component: LoginComponent },
-    { path: 'signUp', component: SignUpComponent },
+    { path: 'inicio_sesion', component: LoginComponent },
+    { path: 'registro', component: SignUpComponent },
+
+
+    /* Users */
+    {
+        path: 'usuario',
+        component: UsuarioComponent,
+        children: [
+            { path: 'menu', component: MenuComponent,/*  canActivate: [AdministratorGuard] */ },
+            { path: 'orden', component: OrdenComponent,/*  canActivate: [AdministratorGuard] */  },
+            { path: 'orden_proceso', component: OrdenProcesoComponent,/*  canActivate: [AdministratorGuard] */  },
+            { path: 'estadisticas', component: EstadisticasComponent,/*  canActivate: [AdministratorGuard] */  },
+            { path: 'amigos', component: AmigosComponent,/*  canActivate: [AdministratorGuard] */  },
+            { path: 'cuenta', component: CuentaComponent,/*  canActivate: [AdministratorGuard] */  },
+        ],
+       /*  canActivate: [AdministratorGuard] */
+    },
 
     /* Users */
     {

@@ -39,13 +39,37 @@ export class LoginComponent implements OnInit {
     }
 
     let data = this.loginForm.value;
+    console.log(data);
+    
+    if (data.id_user == "E") {
+      this.router.navigateByUrl('/usuario');      
+    }
+    else if (data.id_user == "O"){
+      this.router.navigateByUrl('/usuario');
+    }
+    else if (data.id_user == "A"){
+      this.router.navigateByUrl('/admistrator');
+    }
+    else if (data.id_user == "AM"){
+      this.router.navigateByUrl('/admistratorMenu');
+    }
+    else{
+      Swal.fire({
+        title: 'Error',
+        text: "Id / Contraseña invalido",
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      })
+    }
 
-    this.http
+    /* this.http
       .post<any>(urls.api + 'login', data, cors.httpOptions)
       .subscribe(data => {
-        
+
         if (data.message) {
-          Swal.fire({   
+          Swal.fire({
             title: 'Error',
             text: data.message,
             type: 'error',
@@ -55,12 +79,13 @@ export class LoginComponent implements OnInit {
           })
         } else {
           this.onLoggedin(data.jsonResponse);
-          this.router.navigateByUrl('/'+data.jsonResponse.rol);
+          this.router.navigateByUrl('/' + data.jsonResponse.rol);
         }
       }, error => {
         alert('error');
       });
-  }
+  */
+}
 
   onReset() {
     this.submitted = false;
