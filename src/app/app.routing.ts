@@ -6,16 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 // Main Routers
 import { LoginComponent } from './layout/main/login/login.component';
 import { SignUpComponent } from './layout/main/sign-up/sign-up.component';
-import { AdministratorComponent } from './layout/administrator/administrator.component';
-
-// Clildren Routers
-// Admin
-import { AirlineComponent } from './layout/administrator/components/airline/airline.component';
-import { AirportComponent } from './layout/administrator/components/airport/airport.component';
-import { FlightComponent } from './layout/administrator/components/flight/flight.component';
-import { ReportAdminComponent } from './layout/administrator/components/report-admin/report-admin.component';
-import { OfficialsComponent } from './layout/administrator/components/officials/officials.component';
-import { WelcomeAdministratorComponent } from './layout/administrator/components/welcome-administrator/welcome-administrator.component';
 
 // Guards
 import { OfficialGuard, PassengerGuard, AdministratorGuard } from './shared/guard';
@@ -35,6 +25,7 @@ import { NewDishComponent } from './layout/admin-menu/components/new-dish/new-di
 import { AdminComponent } from './layout/admin/admin.component';
 import { AsignarRolComponent } from './layout/admin/components/asignar-rol/asignar-rol.component';
 import { ConfigSistemaComponent } from './layout/admin/components/config-sistema/config-sistema.component';
+import { GraficasComponent } from './layout/graficas/graficas.component';
 
 // Routes
 const routes: Routes = [
@@ -48,6 +39,9 @@ const routes: Routes = [
     /* Login:main & SignUp */
     { path: 'inicio_sesion', component: LoginComponent },
     { path: 'registro', component: SignUpComponent },
+
+
+    { path: 'graficas',  component: GraficasComponent,},
 
     /* Usuario */
     {

@@ -1,0 +1,36 @@
+<!-- <div class="chart-wrapper">
+  <canvas baseChart 
+      [datasets]="lineChartData" 
+      [labels]="lineChartLabels" 
+      [options]="lineChartOptions"
+      [colors]="lineChartColors" 
+      [legend]="lineChartLegend" 
+      [chartType]="lineChartType" 
+      [plugins]="lineChartPlugins">
+  </canvas>
+</div> -->
+
+<div class="chart-wrapper">
+  <canvas baseChart 
+  [data]="pieChartData" 
+  [labels]="pieChartLabels" 
+  [chartType]="pieChartType"
+  [options]="pieChartOptions"
+  [plugins]="pieChartPlugins"
+  [legend]="pieChartLegend">
+</canvas>
+</div>
+
+
+<br>
+
+<div class="chart-wrapper">
+  <canvas baseChart 
+  [datasets]="barChartData"
+  [labels]="barChartLabels"
+  [options]="barChartOptions"
+  [plugins]="barChartPlugins"
+  [legend]="barChartLegend"
+  [chartType]="barChartType">
+</canvas>
+</div>

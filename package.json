@@ -8,8 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "______postinstall": "ng build --aot --prod",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "______postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +41,7 @@
     "jquery": "^3.4.1",
     "jw-bootstrap-switch-ng2": "2.0.5",
     "mongoose": "^5.7.5",
-    "ng2-charts": "^2.3.0",
+    "ng2-charts": "^2.2.3",
     "ng2-nouislider": "1.7.13",
     "ngx-nested-data-table": "0.0.8",
     "nouislider": "9.2.0",
