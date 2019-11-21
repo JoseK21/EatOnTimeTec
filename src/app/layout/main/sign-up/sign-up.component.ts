@@ -46,19 +46,30 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-
-    Swal.fire({
-      position: 'center',
-      title: 'Facebook Window',
-      showConfirmButton: false,
-      timer: 1500
-    })
+    
     
     if (this.signUpForm.invalid) {
       console.log("registerForm.invalid");
       return;
     }
+
+    /* Swal.fire({
+      title: 'Sweet!',
+      text: 'Modal with a custom image.',
+      imageUrl: 'https://unsplash.it/400/200',
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+      timer: 1500
+    }) */
+
+    Swal.fire({
+      position: 'center',
+      title: 'Facebook Window',
+      showConfirmButton: false,
+      
+    })
+
     let data = this.signUpForm.value;
     this.http
       .post<any>(urls.api + 'register', data, cors.httpOptions)

@@ -10,13 +10,17 @@ export class MenuComponent implements OnInit {
 
   menu_list = [
     {
-      name: "1"
+      name: "Chifrijo",
+      recomendado: true
     }, {
-      name: "11"
+      name: "Arroz con Pollo",
+      recomendado: true
     }, {
-      name: "111"
+      name: "Sufre de Atun",
+      recomendado: false
     }, {
-      name: "1111"
+      name: "Cantones",
+      recomendado: false
     },
   ];
   constructor() { }

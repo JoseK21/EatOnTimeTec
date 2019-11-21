@@ -40,20 +40,41 @@ export class LoginComponent implements OnInit {
 
     let data = this.loginForm.value;
     console.log(data);
-    
+
     if (data.id_user == "E") {
-      this.router.navigateByUrl('/usuario');      
-    }
-    else if (data.id_user == "O"){
       this.router.navigateByUrl('/usuario');
     }
-    else if (data.id_user == "A"){
+    else if (data.id_user == "F") {
+      this.router.navigateByUrl('/usuario');
+    }
+    else if (data.id_user == "A") {
       this.router.navigateByUrl('/admistrator');
     }
-    else if (data.id_user == "AM"){
-      this.router.navigateByUrl('/admistratorMenu');
+    else if (data.id_user == "AM") {
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Seleccione el rol para ingresar',
+        showCancelButton: true,
+        confirmButtonText: 'Cliente',
+        cancelButtonText: 'Admin. Menu',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl('/usuario');
+        } else {
+          this.router.navigateByUrl('/admin_menu');
+        }
+      });
     }
-    else{
+    else {
       Swal.fire({
         title: 'Error',
         text: "Id / Contraseña invalido",
@@ -85,7 +106,7 @@ export class LoginComponent implements OnInit {
         alert('error');
       });
   */
-}
+  }
 
   onReset() {
     this.submitted = false;
@@ -97,6 +118,21 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('isLoggedin', 'true');
     localStorage.setItem('is-' + user.rol, 'true');
     localStorage.setItem('id_user', user.id_user);
+  }
+
+
+  sitio_web = "www.x_tec.com";
+  num_central = "2550-5858";
+  correo = "x_tec@gmail.com";
+  openInfoContacto() {
+    Swal.fire({
+      title: 'Información del Contacto',
+      html: "Sitio Web : <a target='_blank' style='outline: none;' href= '" + this.sitio_web + "'>" + this.sitio_web + "</a>"+
+        "<br/>Número de la central : <a style='outline: none;' href = 'tel:" + this.num_central + "'> " + this.num_central + "</a>"
+        +"<br/>Correo Electronico : <a style='outline: none;' target='_blank' href = 'mailto: " + this.correo + "'>" + this.correo + "</a>",
+      showCancelButton: false,
+      showConfirmButton: false,
+    })
   }
 }
 

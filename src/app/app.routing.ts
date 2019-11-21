@@ -3,18 +3,10 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
-// Defaul Template
-import { ComponentsComponent } from './components/components.component';
-import { LandingComponent } from './examples/landing/landing.component';
-import { ProfileComponent } from './examples/profile/profile.component';
-import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
-
 // Main Routers
 import { LoginComponent } from './layout/main/login/login.component';
 import { SignUpComponent } from './layout/main/sign-up/sign-up.component';
 import { AdministratorComponent } from './layout/administrator/administrator.component';
-import { OfficialComponent } from './layout/official/official.component';
-import { PassengerComponent } from './layout/passenger/passenger.component';
 
 // Clildren Routers
 // Admin
@@ -25,20 +17,6 @@ import { ReportAdminComponent } from './layout/administrator/components/report-a
 import { OfficialsComponent } from './layout/administrator/components/officials/officials.component';
 import { WelcomeAdministratorComponent } from './layout/administrator/components/welcome-administrator/welcome-administrator.component';
 
-// Official
-import { BoardingComponent } from './layout/official/components/boarding/boarding.component';
-import { ConsultInfoPassengerComponent } from './layout/official/components/consult-info-passenger/consult-info-passenger.component';
-import { ReportOfficialComponent } from './layout/official/components/report-official/report-official.component';
-import { VerifyCheckInComponent } from './layout/official/components/verify-check-in/verify-check-in.component';
-import { WelcomeOfficialComponent } from './layout/official/components/welcome-official/welcome-official.component';
-
-// Passenger
-import { BuyTicketsComponent } from './layout/passenger/components/buy-tickets/buy-tickets.component';
-import { CheckInComponent } from './layout/passenger/components/check-in/check-in.component';
-import { CrudPassengerComponent } from './layout/passenger/components/crud-passenger/crud-passenger.component';
-import { ReportPassengerComponent } from './layout/passenger/components/report-passenger/report-passenger.component';
-import { WelcomePassengerComponent } from './layout/passenger/components/welcome-passenger/welcome-passenger.component';
-
 // Guards
 import { OfficialGuard, PassengerGuard, AdministratorGuard } from './shared/guard';
 import { MenuComponent } from './layout/usuario/components/menu/menu.component';
@@ -48,73 +26,77 @@ import { AmigosComponent } from './layout/usuario/components/amigos/amigos.compo
 import { CuentaComponent } from './layout/usuario/components/cuenta/cuenta.component';
 import { UsuarioComponent } from './layout/usuario/usuario.component';
 import { OrdenProcesoComponent } from './layout/usuario/components/orden-proceso/orden-proceso.component';
+import { ChefComponent } from './layout/chef/chef.component';
+import { NoConfirmadasComponent } from './layout/chef/components/no-confirmadas/no-confirmadas.component';
+import { ConfirmadasComponent } from './layout/chef/components/confirmadas/confirmadas.component';
+import { AdminMenuComponent } from './layout/admin-menu/admin-menu.component';
+import { ConfigMenuComponent } from './layout/admin-menu/components/config-menu/config-menu.component';
+import { NewDishComponent } from './layout/admin-menu/components/new-dish/new-dish.component';
+import { AdminComponent } from './layout/admin/admin.component';
+import { AsignarRolComponent } from './layout/admin/components/asignar-rol/asignar-rol.component';
+import { ConfigSistemaComponent } from './layout/admin/components/config-sistema/config-sistema.component';
 
 // Routes
 const routes: Routes = [
-    // Redict 
+    // Redirect
     { path: '', redirectTo: 'inicio_sesion', pathMatch: 'full' },
-    { path: 'administrator', redirectTo: 'administrator/welcome', pathMatch: 'full' },
+    { path: 'admin', redirectTo: 'admin/estadisticas', pathMatch: 'full' },
+    { path: 'admin_menu', redirectTo: 'admin/config_menu', pathMatch: 'full' },
     { path: 'usuario', redirectTo: 'usuario/menu', pathMatch: 'full' },
-    { path: 'official', redirectTo: 'official/welcome', pathMatch: 'full' },
+    { path: 'chef', redirectTo: 'chef/no_confirmadas', pathMatch: 'full' },
 
     /* Login:main & SignUp */
     { path: 'inicio_sesion', component: LoginComponent },
     { path: 'registro', component: SignUpComponent },
 
-
-    /* Users */
+    /* Usuario */
     {
         path: 'usuario',
         component: UsuarioComponent,
         children: [
-            { path: 'menu', component: MenuComponent,/*  canActivate: [AdministratorGuard] */ },
-            { path: 'orden', component: OrdenComponent,/*  canActivate: [AdministratorGuard] */  },
-            { path: 'orden_proceso', component: OrdenProcesoComponent,/*  canActivate: [AdministratorGuard] */  },
-            { path: 'estadisticas', component: EstadisticasComponent,/*  canActivate: [AdministratorGuard] */  },
-            { path: 'amigos', component: AmigosComponent,/*  canActivate: [AdministratorGuard] */  },
-            { path: 'cuenta', component: CuentaComponent,/*  canActivate: [AdministratorGuard] */  },
+            { path: 'menu', component: MenuComponent,/*  canActivate: [UsuarioGuard] */ },
+            { path: 'orden', component: OrdenComponent,/*  canActivate: [UsuarioGuard] */ },
+            { path: 'orden_proceso', component: OrdenProcesoComponent,/*  canActivate: [UsuarioGuard] */ },
+            { path: 'estadisticas', component: EstadisticasComponent,/*  canActivate: [UsuarioGuard] */ },
+            { path: 'amigos', component: AmigosComponent,/*  canActivate: [UsuarioGuard] */ },
+            { path: 'cuenta', component: CuentaComponent,/*  canActivate: [UsuarioGuard] */ },
         ],
-       /*  canActivate: [AdministratorGuard] */
+        /*  canActivate: [UsuarioGuard] */
     },
 
-    /* Users */
+    /* Administrador */
     {
-        path: 'administrator',
-        component: AdministratorComponent,
+        path: 'admin',
+        component: AdminComponent,
         children: [
-            { path: 'airline', component: AirlineComponent, canActivate: [AdministratorGuard] },
-            { path: 'airport', component: AirportComponent, canActivate: [AdministratorGuard]  },
-            { path: 'flight', component: FlightComponent, canActivate: [AdministratorGuard]  },
-            { path: 'official', component: OfficialsComponent, canActivate: [AdministratorGuard]  },
-            { path: 'report', component: ReportAdminComponent, canActivate: [AdministratorGuard]  },
-            { path: 'welcome', component: WelcomeAdministratorComponent, canActivate: [AdministratorGuard]  }
+            { path: 'estadisticas', component: EstadisticasComponent/* , canActivate: [AdministratorGuard]  */},
+            { path: 'asignar_rol', component: AsignarRolComponent/* , canActivate: [AdministratorGuard]  */},
+            { path: 'config_sistema', component: ConfigSistemaComponent/* , canActivate: [AdministratorGuard]  */}
         ],
-        canActivate: [AdministratorGuard]
+        /* canActivate: [AdministratorGuard] */
     },
+    
+    /* AdminMenu */
     {
-        path: 'passenger',
-        component: PassengerComponent,
+        path: 'admin_menu',
+        component: AdminMenuComponent,
         children: [
-            { path: 'tickets', component: BuyTicketsComponent, /* canActivate: [PassengerGuard]  */},
-            { path: 'checkIn', component: CheckInComponent, /* canActivate: [PassengerGuard]  */},
-            { path: 'passenger', component: CrudPassengerComponent , /* canActivate: [PassengerGuard]  */},
-            { path: 'report', component: ReportPassengerComponent , /* canActivate: [PassengerGuard]  */},
-            { path: 'welcome', component: WelcomePassengerComponent, /* canActivate: [PassengerGuard]  */}
+            { path: 'config_menu', component: ConfigMenuComponent, /* canActivate: [AdminMenuGuard]  */ },
+            { path: 'new_dish', component: NewDishComponent, /* canActivate: [AdminMenuGuard]  */ },
         ],
-       // canActivate: [PassengerGuard]
+        // canActivate: [AdminMenuGuard]
     },
+
+    /* Chef */
     {
-        path: 'official',
-        component: OfficialComponent,
+        path: 'chef',
+        component: ChefComponent,
         children: [
-            { path: 'boarding', component: BoardingComponent, canActivate: [OfficialGuard] },
-            { path: 'consultPassenger', component: ConsultInfoPassengerComponent, canActivate: [OfficialGuard] },
-            { path: 'report', component: ReportOfficialComponent, canActivate: [OfficialGuard] },
-            { path: 'verify', component: VerifyCheckInComponent, canActivate: [OfficialGuard] },
-            { path: 'welcome', component: WelcomeOfficialComponent, canActivate: [OfficialGuard] }
+            { path: 'no_confirmadas', component: NoConfirmadasComponent, /* canActivate: [ChefGuard]  */ },
+            { path: 'confirmadas', component: ConfirmadasComponent, /* canActivate: [ChefGuard]  */ },
         ],
-        canActivate: [OfficialGuard]
-    }
+        // canActivate: [ChefGuard]
+    },
 ];
 
 @NgModule({

@@ -54,6 +54,17 @@ import { AmigosComponent } from './layout/usuario/components/amigos/amigos.compo
 import { OrdenComponent } from './layout/usuario/components/orden/orden.component';
 import { NavbarUsuarioComponent } from './shared/navbar/navbar-usuario/navbar-usuario.component';
 import { OrdenProcesoComponent } from './layout/usuario/components/orden-proceso/orden-proceso.component';
+import { ChefComponent } from './layout/chef/chef.component';
+import { ConfirmadasComponent } from './layout/chef/components/confirmadas/confirmadas.component';
+import { NoConfirmadasComponent } from './layout/chef/components/no-confirmadas/no-confirmadas.component';
+import { NavbarChefComponent } from './shared/navbar/navbar-chef/navbar-chef.component';
+import { AdminMenuComponent } from './layout/admin-menu/admin-menu.component';
+import { ConfigMenuComponent } from './layout/admin-menu/components/config-menu/config-menu.component';
+import { NewDishComponent } from './layout/admin-menu/components/new-dish/new-dish.component';
+import { AdminComponent } from './layout/admin/admin.component';
+import { AsignarRolComponent } from './layout/admin/components/asignar-rol/asignar-rol.component';
+import { ConfigSistemaComponent } from './layout/admin/components/config-sistema/config-sistema.component';
+import { NavbarAdminComponent } from './shared/navbar/navbar-admin/navbar-admin.component';
 
 
 @NgModule({
@@ -90,7 +101,18 @@ import { OrdenProcesoComponent } from './layout/usuario/components/orden-proceso
         AmigosComponent,
         OrdenComponent,
         NavbarUsuarioComponent,
-        OrdenProcesoComponent
+        OrdenProcesoComponent,
+        ChefComponent,
+        ConfirmadasComponent,
+        NoConfirmadasComponent,
+        NavbarChefComponent,
+        AdminMenuComponent,
+        ConfigMenuComponent,
+        NewDishComponent,
+        AdminComponent,
+        AsignarRolComponent,
+        ConfigSistemaComponent,
+        NavbarAdminComponent
     ],
     imports: [
         BrowserAnimationsModule,
