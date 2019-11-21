@@ -1,4 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { ChartsModule } from 'ng2-charts';
+
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -115,6 +117,7 @@ import { NavbarAdminComponent } from './shared/navbar/navbar-admin/navbar-admin.
         NavbarAdminComponent
     ],
     imports: [
+        ChartsModule,
         BrowserAnimationsModule,
         NgbModule.forRoot(),
         FormsModule,

@@ -1,3 +1,64 @@
-<p>
-  estadisticas works!
-</p>
+<div class="container">
+
+  <div class="row">
+    Cantidad de puntos disponibles : #####
+  </div>
+
+  <div class="row">
+    Ordenes realizadas por mes <br>
+    
+    <div class="chart-wrapper">
+        <canvas baseChart 
+            [datasets]="lineChartData" 
+            [labels]="lineChartLabels" 
+            [options]="lineChartOptions"
+            [colors]="lineChartColors" 
+            [legend]="lineChartLegend" 
+            [chartType]="lineChartType" 
+            [plugins]="lineChartPlugins">
+        </canvas>
+
+
+  </div>
+
+  <div class="row">
+    Ordenes por tipo de plato <br>
+  </div>
+
+  <div class="row">
+    <div class="card border-primary">
+      <div class="card-header" style="text-align: left;">
+        Tabla de conversión (Puntos -> Colones)
+      </div>
+      <div class="card-body" style="align-content: center;">
+        40 Puntos : ₡ 4 000
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    Uso de puntos por mes <br>
+  </div>
+
+  <div class="row">
+    Transacciones <br>
+
+    <table class="table">
+      <thead class="thead-dark" style="font-size: 13px">
+        <tr>
+          <th scope="col"># Transacciones</th>
+          <th scope="col">Datos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+<br><br>

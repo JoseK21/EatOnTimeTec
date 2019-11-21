@@ -54,10 +54,11 @@
             <div class="col-sm">
               <label>Teléfono</label>
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-                <input type="number" min="1" class="form-control" (focus)="focus=true" (blur)="focus=false"
+                <input type="tel" class="form-control" (focus)="focus=true" (blur)="focus=false"
                   formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                 <div *ngIf="submitted && f.phone.errors" class="e_input">
                   <div *ngIf="f.phone.errors.required">El teléfono es requerido</div>
+                  <div *ngIf="f.phone.errors.pattern">El formato de teléfono debe ser ####-####</div>
                 </div>
               </div>
             </div>
