@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
-import { ChartsModule } from 'ng2-charts';
+/* import { ChartsModule } from 'ng2-charts'; */
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -114,10 +114,10 @@ import { NavbarAdminComponent } from './shared/navbar/navbar-admin/navbar-admin.
         AdminComponent,
         AsignarRolComponent,
         ConfigSistemaComponent,
-        NavbarAdminComponent
+        NavbarAdminComponent,
     ],
     imports: [
-        ChartsModule,
+        /* ChartsModule, */
         BrowserAnimationsModule,
         NgbModule.forRoot(),
         FormsModule,
