@@ -12,4 +12,8 @@ export class OrdenProcesoComponent implements OnInit {
   ngOnInit() {
   }
 
+  cancelarOrden(){
+    console.log("cancelarOrden");
+    
+  }
 }

@@ -8,20 +8,23 @@
         <div class="col" style="text-align: left;">
           Platillo # 2
         </div>
-        <div class="col-4" style="right: 0px;position: absolute;">
-          <i class="far fa-edit"></i>
-        </div>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="container" style="text-align: left;">
-  Tiempo restante para modificar : 1.21s
+<div class="container" style="text-align: left;">  
   <br>
   <div class="progress-primary">
     <span class="progress-badge">Estado <span class="progress-value">60%</span></span>
     <ngb-progressbar [value]="60"></ngb-progressbar><br>
+  </div>
+
+  Tiempo restante para modificar : 1.21s
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <button type="button" class="btn btn-primary btn-block" onclick="cancelarOrden()">Cancelar Orden</button>    
+    </div>
   </div>
 </div>

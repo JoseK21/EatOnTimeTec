@@ -1,5 +1,5 @@
 <!-- <div class="page-header" filter-color="white"> -->
-<div class="container">
+<div class="container" style="min-height: 100%; margin: 0;">
   <div class="content-center">
     <div class="card card-login card-plain">
       <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="text-center">
-          <button class="btn btn-primary btn-round btn-block" >Iniciar Sesión</button>
+          <button class="btn btn-primary btn-round btn-block">Iniciar Sesión</button>
         </div>
         <div class="pull-left">
           <p class="text-center">Si todavía no tienes una cuenta, registrate ahora</p>
@@ -43,16 +43,21 @@
       </form>
     </div>
   </div>
+
+<br>
 </div>
-<footer class="footer_1">
-  <div class="row justify-content-around">
-    <div class="col-5">
-      <a (click)="openInfoContacto()"> Contactenos</a>
+  <footer style="align-content: center; padding-top: 5px; border-top: 1px solid blue">
+    <div class="row justify-content-around">
+      <div class="col-5">
+        <a (click)="openInfoContacto()"> Contactenos</a>
+      </div>
+      <div class="col-5" style="text-align: right;">
+        <a href="https://twitter.com/?lang=es" target="_blank">Siguenos en <i class="fab fa-twitter"></i></a>
+      </div>
+      <br>
     </div>
-    <div class="col-5" style="text-align: right;">
-      <a href="https://twitter.com/?lang=es" target="_blank">Siguenos en <i class="fab fa-twitter"></i></a>
-    </div>
-    <br>
-  </div>
-</footer>
-<!-- </div> -->
+  </footer>
+
+
+
+<!-- Quitar propiedad del footer creada por mi-->

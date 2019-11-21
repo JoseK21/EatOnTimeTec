@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 })
 export class MenuComponent implements OnInit {
 
-  menu_list = [
+  menu_temp = [
     {
       name: "Chifrijo",
       recomendado: true
@@ -23,9 +23,22 @@ export class MenuComponent implements OnInit {
       recomendado: false
     },
   ];
+  menu_list = [];
+
+
   constructor() { }
 
   ngOnInit() {
+    let i = 0;
+    this.menu_temp.forEach(element => {
+      var name_short = element.name.replace(/\s/g, '');
+      this.menu_temp[i]['short_name'] = name_short;
+      i++;
+    });
+
+    //console.log(this.menu_temp);
+    
+    this.menu_list = this.menu_temp;
   }
 
   color_menu_b = 'primary';
@@ -60,11 +73,11 @@ export class MenuComponent implements OnInit {
       buttonsStyling: false
     })
 
-    let opciones_amigos = ["Daniel", "José", "Marcelo" , "Sebastian"] ;
+    let opciones_amigos = ["Daniel", "José", "Marcelo", "Sebastian"];
 
     let html_options = "";
     opciones_amigos.forEach(element => {
-      html_options +=  " <option>"+ element +"</option> ";
+      html_options += " <option>" + element + "</option> ";
     });
 
 
@@ -73,12 +86,12 @@ export class MenuComponent implements OnInit {
       title: 'Añadir platillo',
       html:
         'Propio <input id="propio" type="checkbox" checked onclick=" if(document.getElementById(\'propio\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'true\')} else{document.getElementById(\'select_amigos\').disabled=false} ">' +
-        'Amigo <select id="select_amigos" disabled> '+html_options+ ' </select> ',
+        'Amigo <select id="select_amigos" disabled> ' + html_options + ' </select> ',
       focusConfirm: false,
       preConfirm: () => {
         console.log((<HTMLInputElement>document.getElementById('propio')).checked);
         console.log((<HTMLInputElement>document.getElementById('select_amigos')).value);
-        }
+      }
     }).then((result) => {
       if (result.value) {
         Swal.fire(
@@ -88,6 +101,6 @@ export class MenuComponent implements OnInit {
         )
       }
     })
-    
+
   }
 }
