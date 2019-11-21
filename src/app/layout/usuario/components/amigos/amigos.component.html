@@ -1,3 +1,39 @@
-<p>
-  amigos works!
-</p>
+<form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="row align-items-center">
+    <div class="col-8">
+
+      <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+        <input class="form-control" type="search" placeholder="Nombre/Télefono" class="form-control" (focus)="focus=true"
+          (blur)="focus=false" formControlName="amigo" [ngClass]="{ 'is-invalid': submitted && f.amigo.errors }">
+      </div>
+
+      <div *ngIf="submitted && f.amigo.errors">
+        <div *ngIf="f.amigo.errors.required" class="e_input">El nombre/télefono del amigo es requerido</div>
+      </div>
+
+    </div>
+    <div class="col"><button class="btn btn-primary">Buscar</button></div>
+  </div>
+</form>
+
+<div class="card border-primary">
+  <div class="card-header" style="text-align: left;">
+    Mis Amigos
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row justify-content-between" *ngFor="let amigo of amigos_list">
+        <div class="col" style="text-align: left;">
+          {{amigo.name}}
+        </div>
+        <div class="col-3" style="right: 0px;position: absolute;" (click)="removerAmigo(amigo.name)">
+          <i class="fa fa-minus-square"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
