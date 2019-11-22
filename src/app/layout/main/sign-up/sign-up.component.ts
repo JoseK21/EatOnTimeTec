@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit {
   focus;
   focus1;
 
-  provincias__ = ["0","1","2","3","4","5"];
+  provincias__ = ["0", "1", "2", "3", "4", "5"];
 
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
   getRandomInt() {
     let min = Math.ceil(2000000000);
     let max = Math.floor(2019000000);
-    return Math.floor(Math.random() * (max - min)) + min; 
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 
   get f() { return this.signUpForm.controls; }
@@ -58,11 +58,11 @@ export class SignUpComponent implements OnInit {
 
     this.submitted = false;
 
-    this.fake_datas_random = this.getRandomInt() ;
+    this.fake_datas_random = this.getRandomInt();
 
     Swal.fire({
       title: 'Facebook!',
-      text: 'Cuenta : ' + String(this.fake_datas_random) ,
+      text: 'Cuenta : ' + String(this.fake_datas_random),
       imageUrl: 'assets/facebook.png',
       imageWidth: 300,
       imageHeight: 300,
@@ -71,8 +71,19 @@ export class SignUpComponent implements OnInit {
 
 
     let data = this.signUpForm.value;
+
+    /* Metodo para obtener el id de la provincia */
+
+    let id_provincia;
+    this.provincias.forEach(element => {
+      if ( JSON.parse(JSON.stringify(element)).provinceName == data.provinceName) {
+        data.province = { "idProvince": data.idProvince, "provinceName": data.provinceName};
+      }      
+    });
+
+   
     console.log(data);
-    
+
     this.http
       .post<any>(urls.api + 'person/signup', data, cors.httpOptions)
       .subscribe(response_api => {
@@ -122,7 +133,7 @@ export class SignUpComponent implements OnInit {
         if (response_api.lenght == 0) {
           this.provincias = [];
           console.log("Error al cargar las provincias");
-        } 
+        }
         else {
           this.provincias = response_api;
         }
@@ -149,7 +160,7 @@ export class SignUpComponent implements OnInit {
   }
 
   my_preference = [];
-  add_preference(preference){
+  add_preference(preference) {
     this.my_preference.push(preference.preference);
   }
 }
