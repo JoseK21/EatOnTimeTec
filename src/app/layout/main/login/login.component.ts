@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     localStorage.clear();
     this.loginForm = this.formBuilder.group({
-      id_user: ['', Validators.required],
+      user_id: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -41,16 +41,44 @@ export class LoginComponent implements OnInit {
     let data = this.loginForm.value;
     console.log(data);
 
-    if (data.id_user == "E") {
+
+     this.http
+      .post<any>(urls.api + 'login', data, cors.httpOptions)
+      .subscribe(response_api => {
+
+        console.log(response_api);
+        
+        if (response_api.message) {
+          Swal.fire({
+            title: 'Error',
+            text: response_api.message,
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          })
+        } else {
+
+          /* this.onLoggedin(response_api.jsonResponse);
+          this.router.navigateByUrl('/' + response_api.jsonResponse.rol); */
+        }
+      }, error => {
+        alert('error');
+      });
+ 
+
+
+
+    if (data.user_id == "E") {
       this.router.navigateByUrl('/usuario');
     }
-    else if (data.id_user == "F") {
+    else if (data.user_id == "F") {
       this.router.navigateByUrl('/usuario');
     }
-    else if (data.id_user == "A") {
+    else if (data.user_id == "A") {
       this.router.navigateByUrl('/admistrator');
     }
-    else if (data.id_user == "AM") {
+    else if (data.user_id == "AM") {
 
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -85,27 +113,7 @@ export class LoginComponent implements OnInit {
       })
     }
 
-    /* this.http
-      .post<any>(urls.api + 'login', data, cors.httpOptions)
-      .subscribe(data => {
-
-        if (data.message) {
-          Swal.fire({
-            title: 'Error',
-            text: data.message,
-            type: 'error',
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          })
-        } else {
-          this.onLoggedin(data.jsonResponse);
-          this.router.navigateByUrl('/' + data.jsonResponse.rol);
-        }
-      }, error => {
-        alert('error');
-      });
-  */
+   
   }
 
   onReset() {
@@ -117,7 +125,7 @@ export class LoginComponent implements OnInit {
     localStorage.clear();
     localStorage.setItem('isLoggedin', 'true');
     localStorage.setItem('is-' + user.rol, 'true');
-    localStorage.setItem('id_user', user.id_user);
+    localStorage.setItem('user_id', user.user_id);
   }
 
 

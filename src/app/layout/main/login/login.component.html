@@ -12,10 +12,10 @@
           <label>Id</label>
           <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
             <input type="text" class="form-control" placeholder="Id" (focus)="focus=true" (blur)="focus=false"
-              formControlName="id_user" [ngClass]="{ 'is-invalid': submitted && f.id_user.errors }">
+              formControlName="user_id" [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }">
 
-            <div *ngIf="submitted && f.id_user.errors">
-              <div *ngIf="f.id_user.errors.required" class="e_input">El Id es requerido</div>
+            <div *ngIf="submitted && f.user_id.errors">
+              <div *ngIf="f.user_id.errors.required" class="e_input">El Id es requerido</div>
             </div>
 
           </div>
@@ -46,7 +46,7 @@
 
 <br>
 </div>
-  <footer style="align-content: center; padding-top: 5px; border-top: 1px solid blue">
+  <footer class="footer_1" style="align-content: center; padding-top: 5px; border-top: 1px solid blue">
     <div class="row justify-content-around">
       <div class="col-5">
         <a (click)="openInfoContacto()"> Contactenos</a>

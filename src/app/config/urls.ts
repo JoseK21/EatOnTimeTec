@@ -1,6 +1,8 @@
 export class urls {
     // Api 
-    public static api = 'http://localhost:3000/';
+    public static api = 'http://localhost:8800/EatOnTimeTECAPI/';
     // DataBase
-    public static mongodb = "mongodb+srv://JoseK21:<jni2D2whJSROwNwe>@tecplane-ny5al.azure.mongodb.net/test?retryWrites=true&w=majority"
+    /* public static mongodb = "mongodb+srv://JoseK21:<jni2D2whJSROwNwe>@tecplane-ny5al.azure.mongodb.net/test?retryWrites=true&w=majority" */
+
+    public static db = "URL";
 }
