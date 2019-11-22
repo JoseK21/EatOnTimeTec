@@ -85,12 +85,13 @@ export class MenuComponent implements OnInit {
     await Swal.fire({
       title: 'Añadir platillo',
       html:
-        '<input id="propio" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked onclick="if(document.getElementById(\'propio\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'true\');document.getElementById(\'amigo\').checked=false} else{document.getElementById(\'select_amigos\').disabled=false; document.getElementById(\'amigo\').checked=true } ">  Propio  ' +
-        '<input id="amigo" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">  Amigo' +
+        '<input id="propio" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked onclick="document.getElementById(\'select_amigos\').disabled=true">  Propio  ' +
+        '<input id="amigo" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" onclick="document.getElementById(\'select_amigos\').disabled=false">  Amigo' +
         '<select id="select_amigos" disabled> ' + html_options + ' </select> ',
       focusConfirm: false,
       preConfirm: () => {
         console.log((<HTMLInputElement>document.getElementById('propio')).checked);
+        console.log((<HTMLInputElement>document.getElementById('amigo')).checked);
         console.log((<HTMLInputElement>document.getElementById('select_amigos')).value);
       }
     }).then((result) => {
