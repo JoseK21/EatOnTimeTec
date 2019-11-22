@@ -10,8 +10,8 @@
       <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <div class="header header-primary text-center">
           
-          <h2>José Carlos Núñez Valverde</h2>
-          <h4>2016062809</h4>
+          <h2>{{info_user.name}}</h2>
+          <h4>{{info_user.idUser}}</h4>
         </div>
         <br>
         <div class="content" style="text-align:left">
@@ -34,13 +34,12 @@
             <div class="col-sm">
               <label>Provincia</label>
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-                <select class="form-control form-control-lg" formControlName="nationality"
-                  [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }" #nationality
-                  (change)="get_residence(nationality.value)">
-                  <option *ngFor="let item of nationalities">{{item}}</option>
+                <select class="form-control form-control-lg" formControlName="provinceName"
+                  [ngClass]="{ 'is-invalid': submitted && f.provinceName.errors }">
+                  <option *ngFor="let item of provinces">{{item}}</option>
                 </select>
-                <div *ngIf="submitted && f.nationality.errors" class="e_input">
-                  <div *ngIf="f.nationality.errors.required">La Provincia es requerida</div>
+                <div *ngIf="submitted && f.provinceName.errors" class="e_input">
+                  <div *ngIf="f.provinceName.errors.required">La Provincia es requerida</div>
                 </div>
               </div>
             </div>

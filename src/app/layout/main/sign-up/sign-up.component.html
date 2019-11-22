@@ -40,7 +40,7 @@
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
                 <select class="form-control form-control-lg" formControlName="provinceName"
                   [ngClass]="{ 'is-invalid': submitted && f.provinceName.errors }">
-                  <option *ngFor="let item of provincias__">{{item}}</option>
+                  <option *ngFor="let item of provincias">{{item.provinceName}}</option>
                 </select>
                 <div *ngIf="submitted && f.provinceName.errors" class="e_input">
                   <div *ngIf="f.provinceName.errors.required">La Provincia es requerida</div>
@@ -70,7 +70,7 @@
                 <div class="form-check-inline" *ngFor="let p of preferences">
                   <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" name="optradio"
-                      (click)="add_preference(p.preference)">{{p.preference}}
+                      (click)="add_preference(p)">{{p.preference}}
                   </label>
                 </div>
               </div>

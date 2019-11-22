@@ -69,24 +69,24 @@ export class LoginComponent implements OnInit {
              Chef : 3
              AdminMenu 4
           */
-          if (data.user_id == 0) {
+          if (data.user_id == 2016653534) {
             this.onLoggedin("E", data.user_id);
             this.router.navigateByUrl('/usuario');
           }
-          else if (data.user_id == 1) {
+          else if (data.user_id == 2016928620) {
             this.onLoggedin("E", data.user_id);
             localStorage.setItem('F', 'true'); // Guarda que es un funcionario, debe quitar propiedades de puntos
             this.router.navigateByUrl('/usuario');
           }
-          else if (data.user_id == 2) {
+          else if (data.user_id == 2016115728) {
             this.onLoggedin("A", data.user_id);
             this.router.navigateByUrl('/admistrator');
           }
-          else if (data.user_id == 3) {
+          else if (data.user_id == 515111215) {
             this.onLoggedin("C", data.user_id);
             this.router.navigateByUrl('/chef');
           }
-          else if (data.user_id == 4) {      
+          else if (data.user_id == 2016632434) {      
             const swalWithBootstrapButtons = Swal.mixin({
               customClass: {
                 confirmButton: 'btn btn-primary',
@@ -112,8 +112,14 @@ export class LoginComponent implements OnInit {
             });
           }
           else{
-            this.onLoggedin("E", data.user_id);
-            this.router.navigateByUrl('/usuario');
+            Swal.fire({
+              title: 'Error',
+              text: "Usuario de registrado correctamente",
+              type: 'error',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            })
           }
         }
       }, error => {

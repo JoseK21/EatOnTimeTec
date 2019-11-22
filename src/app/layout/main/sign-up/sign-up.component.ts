@@ -57,11 +57,6 @@ export class SignUpComponent implements OnInit {
     }
 
     this.submitted = false;
-    Swal.fire({
-      position: 'center',
-      title: 'Facebook',
-      showConfirmButton: false,
-    })
 
     this.fake_datas_random = this.getRandomInt() ;
 
@@ -74,7 +69,7 @@ export class SignUpComponent implements OnInit {
       imageAlt: 'Custom image',
     })
 
-// Sino meter los datos aqui
+
     let data = this.signUpForm.value;
     console.log(data);
     
@@ -155,8 +150,8 @@ export class SignUpComponent implements OnInit {
   }
 
   my_preference = [];
-  add_preference(name_preference){
-    this.my_preference.push(name_preference);
+  add_preference(preference){
+    this.my_preference.push(preference.preference);
   }
 }
 

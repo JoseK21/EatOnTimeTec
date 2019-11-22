@@ -15,7 +15,7 @@ export class AmigosComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  amigos_list = [
+  amigos_list_A = [
     { name: "José Núñez" },
     { name: "Marcelo Sanchez" },
     { name: "Daniel Montoya" },
@@ -60,7 +60,7 @@ export class AmigosComponent implements OnInit {
     let data = this.loginForm.value;
     console.log(data);
 
-    /* this.http
+    this.http
       .post<any>(urls.api + 'login', data, cors.httpOptions)
       .subscribe(data => {
 
@@ -74,13 +74,31 @@ export class AmigosComponent implements OnInit {
             confirmButtonText: 'OK'
           })
         } else {
-          this.onLoggedin(data.jsonResponse);
-          this.router.navigateByUrl('/' + data.jsonResponse.rol);
+
         }
       }, error => {
         alert('error');
       });
-  */
+ 
   }
+
+
+  /* getProvince  */
+amigos_list: Array<String> = [];
+get_user_friends() {
+  console.log('get_user_friends()');
+  this.amigos_list = [];
+  this.http
+    .get<any>(urls.api + 'friend/get/'+localStorage.getItem('user_id'), cors.httpOptions)
+    .subscribe(response_api => {
+      if (response_api.lenght == 0) {
+        this.amigos_list = [];
+        console.log("Error al cargar las amigos_list");
+      } 
+      else {
+        this.amigos_list = response_api;
+      }
+    });
+}
 
 }

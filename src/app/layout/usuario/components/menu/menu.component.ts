@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { urls } from '../../../../config/urls';
+import { cors } from '../../../../config/cors';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,19 +31,10 @@ export class MenuComponent implements OnInit {
   menu_list = [];
 
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {
-    let i = 0;
-    this.menu_temp.forEach(element => {
-      var name_short = element.name.replace(/\s/g, '');
-      this.menu_temp[i]['short_name'] = name_short;
-      i++;
-    });
 
-    //console.log(this.menu_temp);
-    
-    this.menu_list = this.menu_temp;
   }
 
   color_menu_b = 'primary';
@@ -105,35 +101,36 @@ export class MenuComponent implements OnInit {
     })
 
   }
+
+
+  /* getProvince  */
+  menu: Array<String> = [];
+  get_menu() {
+    console.log('get_menu()');
+    this.menu = [];
+    this.http
+      .get<any>(urls.api + 'menu/get', cors.httpOptions)
+      .subscribe(response_api => {
+        if (response_api.lenght == 0) {
+          this.menu = [];
+          console.log("Error al cargar el menu");
+        }
+        else {
+          this.menu = response_api;
+
+          let i = 0;
+          this.menu_temp.forEach(element => {
+            var name_short = element.name.replace(/\s/g, '');
+            this.menu_temp[i]['short_name'] = name_short;
+            i++;
+          });
+          this.menu_list = this.menu_temp;
+
+        }
+
+      });
+
+  }
+
+
 }
-
-
-
-/* 
-
-html:
-        '<input id="propio" type="checkbox" checked onclick=" if(document.getElementById(\'propio\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'true\');document.getElementById(\'amigo\').checked=false} else{document.getElementById(\'select_amigos\').disabled=false; document.getElementById(\'amigo\').checked=true } ">  Propio  ' +
-        '<input id="amigo" type="checkbox" onclick=" if(document.getElementById(\'amigo\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'false\'); document.getElementById(\'propio\').checked=false} else{document.getElementById(\'select_amigos\').disabled=true; document.getElementById(\'propio\').checked=true } ">  Amigo' +
-        '<select id="select_amigos" disabled> ' + html_options + ' </select> ',
-      focusConfirm: false,
-
-
- html:
-        '<input id="propio" type="checkbox" checked onclick="'+
-        'if(document.getElementById(\'propio\').checked) '+
-        '   { console.log("100");'+
-        '     document.getElementById(\'select_amigos\').disasbled=true;'+
-        '     document.getElementById(\'amigo\').checked=false'+
-        '}else{ console.log("011");'+
-        '       document.getElementById(\'select_amigos\').disabled=false;'+
-        '       document.getElementById(\'amigo\').checked=true } "> Propio   ' +
-        '<input id="amigo" type="checkbox" onclick=" '+
-        'if( document.getElementById(\'amigo\').checked) { '+
-        '   console.log("011"); '+
-        '   document.getElementById(\'propio\').checked=false;'+
-        '   document.getElementById(\'select_amigos\').disabled=false;'+
-        '} else{console.log("100"); '+
-        '       document.getElementById(\'propio\').checked=true;'+
-        '       document.getElementById(\'select_amigos\').disasbled=true} ">Amigo <select id="select_amigos" disabled> ' + html_options + ' </select> ',
-      focusConfirm: false,
-*/
