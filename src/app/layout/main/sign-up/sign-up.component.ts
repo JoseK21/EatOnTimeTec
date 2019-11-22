@@ -118,16 +118,13 @@ export class SignUpComponent implements OnInit {
     this.http
       .get<any>(urls.api + 'person/provinces', cors.httpOptions)
       .subscribe(response_api => {
+        console.log(response_api);
         if (response_api.lenght == 0) {
           this.provincias = [];
           console.log("Error al cargar las provincias");
         } 
         else {
           this.provincias = response_api;
-          /* for (let index = 0; index < response_api.length; index++) {
-            let tem = JSON.parse(JSON.stringify(response_api[index]));
-            this.provincias.push(tem.provinceName);
-          } */
         }
       });
   }
@@ -138,8 +135,10 @@ export class SignUpComponent implements OnInit {
     console.log('get_preferences()');
     this.preferencias = [];
     this.http
-      .get<any>(urls.api + 'default/preferences', cors.httpOptions)
+      .get<any>(urls.api + 'person/default/preferences', cors.httpOptions)
       .subscribe(response_api => {
+        console.log(response_api);
+        
         if (response_api.length == 0) {
           this.preferencias = [];
           console.log("Error al cargar las preferencias/gustos");

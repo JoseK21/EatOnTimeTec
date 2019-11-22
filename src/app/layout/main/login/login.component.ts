@@ -41,90 +41,89 @@ export class LoginComponent implements OnInit {
     let data = this.loginForm.value;
     console.log(data);
 
-/* Quitar esto */
-    this.onLoggedin("E", data.user_id);
-    this.router.navigateByUrl('/usuario');
-
-
     this.http
       .post<any>(urls.api + 'login', data, cors.httpOptions)
       .subscribe(response_api => {
-
         console.log(response_api);
-
-        if (response_api.length == 0) {
-          Swal.fire({
-            title: 'Error',
-            text: "Id / Contraseña invalido",
-            type: 'error',
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          })
-        } else {
-
-          /* Estudiante : 0
-             Funcionario : 1
-             Admin : 2
-             Chef : 3
-             AdminMenu 4
-          */
-          if (data.user_id == 2016653534) {
-            this.onLoggedin("E", data.user_id);
-            this.router.navigateByUrl('/usuario');
-          }
-          else if (data.user_id == 2016928620) {
-            this.onLoggedin("E", data.user_id);
-            localStorage.setItem('F', 'true'); // Guarda que es un funcionario, debe quitar propiedades de puntos
-            this.router.navigateByUrl('/usuario');
-          }
-          else if (data.user_id == 2016115728) {
-            this.onLoggedin("A", data.user_id);
-            this.router.navigateByUrl('/admistrator');
-          }
-          else if (data.user_id == 515111215) {
-            this.onLoggedin("C", data.user_id);
-            this.router.navigateByUrl('/chef');
-          }
-          else if (data.user_id == 2016632434) {      
-            const swalWithBootstrapButtons = Swal.mixin({
-              customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-primary'
-              },
-              buttonsStyling: false
-            })
-      
-            swalWithBootstrapButtons.fire({
-              title: 'Seleccione el rol para ingresar',
-              showCancelButton: true,
-              confirmButtonText: 'Estudiante',
-              cancelButtonText: 'Admin. Menu',
-              reverseButtons: true
-            }).then((result) => {
-              if (result.value) {
-                this.onLoggedin("E", data.user_id);
-                this.router.navigateByUrl('/usuario');
-              } else {
-                this.onLoggedin("AM", data.user_id);
-                this.router.navigateByUrl('/admin_menu');
-              }
-            });
-          }
-          else{
-            Swal.fire({
-              title: 'Error',
-              text: "Usuario de registrado correctamente",
-              type: 'error',
-              showCancelButton: false,
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK'
-            })
-          }
-        }
+        this.ingresar(data,"Inicio de sesión exitoso")
+       
       }, error => {
-        alert('Error Server');
+        console.log(error.error.text);
+        this.ingresar(data,error.error.text)
       });
+  }
+
+  ingresar(data,string){
+    let string_api = string;
+    if (string_api.length == 0) {
+      Swal.fire({
+        title: 'Error',
+        text: "Id / Contraseña invalido",
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      })
+    } else {
+
+      /* Estudiante : 0
+         Funcionario : 1
+         Admin : 2
+         Chef : 3
+         AdminMenu 4
+      */
+      if (data.user_id == 2016653534 || data.user_id ==116920112) {
+        this.onLoggedin("E", data.user_id);
+        this.router.navigateByUrl('/usuario');
+      }
+      else if (data.user_id == 2016928620) {
+        this.onLoggedin("E", data.user_id);
+        localStorage.setItem('F', 'true'); // Guarda que es un funcionario, debe quitar propiedades de puntos
+        this.router.navigateByUrl('/usuario');
+      }
+      else if (data.user_id == 2016115728) {
+        this.onLoggedin("A", data.user_id);
+        this.router.navigateByUrl('/admistrator');
+      }
+      else if (data.user_id == 515111215) {
+        this.onLoggedin("C", data.user_id);
+        this.router.navigateByUrl('/chef');
+      }
+      else if (data.user_id == 2016632434) {      
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-primary'
+          },
+          buttonsStyling: false
+        })
+  
+        swalWithBootstrapButtons.fire({
+          title: 'Seleccione el rol para ingresar',
+          showCancelButton: true,
+          confirmButtonText: 'Estudiante',
+          cancelButtonText: 'Admin. Menu',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.value) {
+            this.onLoggedin("E", data.user_id);
+            this.router.navigateByUrl('/usuario');
+          } else {
+            this.onLoggedin("AM", data.user_id);
+            this.router.navigateByUrl('/admin_menu');
+          }
+        });
+      }
+      else{
+        Swal.fire({
+          title: 'Error',
+          text: "Credenciales Invalidos",
+          type: 'error',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK'
+        })
+      }}
   }
 
   onReset() {

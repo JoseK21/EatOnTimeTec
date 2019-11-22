@@ -13,28 +13,12 @@ import Swal from 'sweetalert2';
 })
 export class MenuComponent implements OnInit {
 
-  menu_temp = [
-    {
-      name: "Chifrijo",
-      recomendado: true
-    }, {
-      name: "Arroz con Pollo",
-      recomendado: true
-    }, {
-      name: "Sufre de Atun",
-      recomendado: false
-    }, {
-      name: "Cantones",
-      recomendado: false
-    },
-  ];
-  menu_list = [];
-
-
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {
-
+   
+    this.get_recommendations();
+    this.get_menu();
   }
 
   color_menu_b = 'primary';
@@ -45,14 +29,12 @@ export class MenuComponent implements OnInit {
     if (b == 0) {
       this.color_menu_b = 'primary';
       this.color_rec_b = 'gray';
-      this.menu_list = []
 
       /* document.getElementById('b_menu').setAttribute('background-color','blue');
       document.getElementById('b_rec').setAttribute('background-color','white'); */
     } else {
       this.color_menu_b = 'gray';
       this.color_rec_b = 'primary';
-      this.menu_list = []
       /* document.getElementById('b_menu').setAttribute('background-color','white');
       document.getElementById('b_rec').setAttribute('background-color','blue'); */
     }
@@ -103,34 +85,77 @@ export class MenuComponent implements OnInit {
   }
 
 
-  /* getProvince  */
   menu: Array<String> = [];
   get_menu() {
     console.log('get_menu()');
     this.menu = [];
     this.http
       .get<any>(urls.api + 'menu/get', cors.httpOptions)
-      .subscribe(response_api => {
+      .subscribe(response_api => {        
         if (response_api.lenght == 0) {
           this.menu = [];
           console.log("Error al cargar el menu");
         }
         else {
           this.menu = response_api;
+          console.log('Menú');
+          console.log(this.menu);
 
           let i = 0;
-          this.menu_temp.forEach(element => {
-            var name_short = element.name.replace(/\s/g, '');
-            this.menu_temp[i]['short_name'] = name_short;
+          this.menu.forEach(element => {
+            var name_short = element['name'].replace(/\s/g, '');
+            this.menu[i]['short_name'] = name_short;
+            
+           
+
+            console.log(element['name']);           
+            console.log('Rec: ',  this.recommendations);   
+            this.recommendations.forEach(rec => {
+              console.log(rec);
+              
+              if (rec['name'] == element['name']) {              
+                this.menu[i]['recommendation'] = true;
+              }    
+              else{
+                this.menu[i]['recommendation'] = false;
+              }     
+            });
             i++;
           });
-          this.menu_list = this.menu_temp;
-
         }
-
-      });
-
+      }, error => {
+        console.log(error.error.text);
+      }   
+      );
   }
 
+
+
+  recommendations: Array<String> = [];
+  get_recommendations() {
+    console.log('get_recommendations()');
+    this.recommendations = [];
+    this.http
+      .get<any>(urls.api + 'menu/get/recommendations/' + localStorage.getItem('user_id'), cors.httpOptions)
+      .subscribe(response_api => {
+        console.log('Recomendaciones');        
+        console.log(response_api);
+        
+        if (response_api.lenght == 0) {
+          this.recommendations = [];
+          console.log("Error al cargar el recommendations");
+        }
+        else {
+          this.recommendations = response_api;
+
+          let i = 0;
+          this.recommendations.forEach(element => {
+            var name_short = element['name'].replace(/\s/g, '');
+            this.recommendations[i]['short_name'] = name_short;
+            i++;
+          });
+        }
+      });
+  }
 
 }

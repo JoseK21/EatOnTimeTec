@@ -36,7 +36,7 @@
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
                 <select class="form-control form-control-lg" formControlName="provinceName"
                   [ngClass]="{ 'is-invalid': submitted && f.provinceName.errors }">
-                  <option *ngFor="let item of provinces">{{item}}</option>
+                  <option *ngFor="let item of provincias">{{item.provinceName}}</option>
                 </select>
                 <div *ngIf="submitted && f.provinceName.errors" class="e_input">
                   <div *ngIf="f.provinceName.errors.required">La Provincia es requerida</div>
@@ -53,6 +53,7 @@
                   formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                 <div *ngIf="submitted && f.phone.errors" class="e_input">
                   <div *ngIf="f.phone.errors.required">El teléfono es requerido</div>
+                  <div *ngIf="f.phone.errors.pattern">El formato de teléfono debe ser ####-####</div>
                 </div>
               </div>
             </div>
@@ -62,9 +63,9 @@
             <div class="col-sm">
               <label>Gustos</label>
               <div class="form-group">
-                <div class="form-check-inline" *ngFor="let g of gustos">
+                <div class="form-check-inline" *ngFor="let g of preferencias">
                   <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="optradio">{{g}}
+                    <input type="checkbox" class="form-check-input" checked="{{g.checked}}" name="optradio">{{g.preference}}
                   </label>
                 </div>
               </div>

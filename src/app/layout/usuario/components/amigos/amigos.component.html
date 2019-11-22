@@ -24,9 +24,9 @@
     <div class="container">
       <div class="row justify-content-between" *ngFor="let amigo of amigos_list">
         <div class="col" style="text-align: left;">
-          {{amigo.name}}
+          {{amigo.friend_name}}
         </div>
-        <div class="col-3" style="right: 0px;position: absolute;" (click)="removerAmigo(amigo.name)">
+        <div class="col-3" style="right: 0px;position: absolute;" (click)="removerAmigo(amigo.friend_id)">
           <i class="fa fa-minus-square"></i>
         </div>
       </div>

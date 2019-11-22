@@ -11,7 +11,7 @@
 
 <div class="content-center brand">
   <div id="accordion">
-    <div class="card" style="margin-bottom: 0 !important;" *ngFor="let menu of menu_list">
+    <div class="card" style="margin-bottom: 0 !important;" *ngFor="let menu of menu">
       <div class="card-header card_color" attr.id="heading{{menu.short_name}}">
         <div class="row justify-content-between">
           <div class="col align-self-left">
@@ -21,7 +21,7 @@
             </button>
           </div>
 
-          <div class="col-4 align-self-center" *ngIf="menu.recomendado" style="font-size: x-small; color: blue;" >
+          <div class="col-4 align-self-center" *ngIf="menu.recommendation" style="font-size: x-small; color: blue;" >
             Recomendado
           </div>
           <div class="col-2 align-self-center" (click)="add(menu.name)">
@@ -33,10 +33,10 @@
       <div attr.id="collapse{{menu.short_name}}" class="collapse" attr.aria-labelledby="heading{{menu.short_name}}"
         data-parent="#accordion" style="text-align: left;">
         <div class="card-body">
-          <p>Precio : {{menu.precio}} </p>
-          <p>Tiempo Preparación : {{menu.tiempo}}</p>
-          <p>Calorias : {{menu.calorias}}</p>
-          <p>Ingredientes : {{menu.ingredientes}}</p>
+          <p>Precio : {{menu.price}} </p>
+          <p>Tiempo Preparación : 10min</p>
+          <p>Calorias : {{menu.calories}}</p>
+          <p>Ingredientes : {{menu.ingredients}}</p>
         </div>
       </div>
     </div>

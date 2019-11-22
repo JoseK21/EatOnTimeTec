@@ -60,8 +60,29 @@ export class CuentaComponent implements OnInit {
     data.password = "";
 
     this.http
+      .get<any>(urls.api + 'actualizar cuentaaaaaa' + localStorage.getItem('user_id'), cors.httpOptions)
+      .subscribe(response_api => {
+        if (response_api.length == 0) {
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Información no cargada, recargue por favor.',
+          })
+        } else {
+          this.info_user = response_api;
+
+        }
+      });
+  }
+
+
+  my_preferences = [];
+  get_info() {
+    this.http
       .get<any>(urls.api + 'person/details/' + localStorage.getItem('user_id'), cors.httpOptions)
       .subscribe(response_api => {
+        console.log(response_api);
+
         if (response_api.length == 0) {
           Swal.fire({
             type: 'error',
@@ -73,38 +94,6 @@ export class CuentaComponent implements OnInit {
           this.signUpForm.get('email').setValue(response_api.email);
           this.signUpForm.get('provinceName').setValue(response_api.province.provinceName);
           this.signUpForm.get('phone').setValue(response_api.phone);
-        }
-      });
-  }
-
-
-  my_preferences = [];
-  get_info() {
-    this.http
-      .get<any>(urls.api + 'person/details/' + localStorage.getItem('user_id'), cors.httpOptions)
-      .subscribe(response_api => {
-        if (response_api.length == 0) {
-          Swal.fire({
-            type: 'error',
-            title: 'Oops...',
-            text: 'Información no cargada, recargue por favor.',
-          })
-        } else {
-          this.info_user = response_api;
-        }
-      });
-
-    this.http
-      .get<any>(urls.api + 'preferences/' + localStorage.getItem('user_id'), cors.httpOptions)
-      .subscribe(response_api => {
-        if (response_api.length == 0) {
-          Swal.fire({
-            type: 'error',
-            title: 'Oops...',
-            text: 'Información no cargada, recargue por favor.',
-          })
-        } else {
-          this.my_preferences = response_api;
         }
       });
   }
@@ -123,6 +112,7 @@ export class CuentaComponent implements OnInit {
     this.http
       .get<any>(urls.api + 'person/provinces', cors.httpOptions)
       .subscribe(response_api => {
+        console.log(response_api);
         if (response_api.lenght == 0) {
           this.provincias = [];
           console.log("Error al cargar las provincias");
@@ -133,21 +123,64 @@ export class CuentaComponent implements OnInit {
       });
   }
 
+
   preferencias: Array<String> = [];
+  check_preferencias = [];
   get_preferences() {
+    this.http
+      .get<any>(urls.api + '/person/preferences/' + localStorage.getItem('user_id'), cors.httpOptions)
+      .subscribe(response_api => {
+        console.log('<<Mis Gustos>>');
+        console.log(response_api);
+
+        if (response_api.length == 0) {
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Información no cargada, recargue por favor.',
+          })
+        } else {
+          this.my_preferences = response_api;
+          console.log(this.my_preferences);
+
+        }
+      });
+
+
+
     console.log('get_preferences()');
     this.preferencias = [];
     this.http
-      .get<any>(urls.api + 'default/preferences', cors.httpOptions)
+      .get<any>(urls.api + 'person/default/preferences', cors.httpOptions)
       .subscribe(response_api => {
+        console.log(response_api);
+
         if (response_api.length == 0) {
           this.preferencias = [];
           console.log("Error al cargar las preferencias/gustos");
         } else {
           this.preferencias = response_api;
+          let i = 0;
+
+          this.preferencias.forEach(element => {
+            console.log('element[name]: '+element['preference']);
+            console.log(this.my_preferences);
+            
+            this.my_preferences.forEach(pref => {
+              console.log('pref: '+pref);
+
+
+              if (pref == element['preference']) {
+                this.preferencias[i]['checked'] = true;
+              }
+              else {
+                this.preferencias[i]['checked'] = false;
+              }
+            });
+          })
+          i++;
         }
-      });
+      })
   }
-
-
 }
+
