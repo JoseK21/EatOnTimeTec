@@ -8,7 +8,9 @@ import { LoginComponent } from './layout/main/login/login.component';
 import { SignUpComponent } from './layout/main/sign-up/sign-up.component';
 
 // Guards
-import { OfficialGuard, PassengerGuard, AdministratorGuard } from './shared/guard';
+import { EstudianteGuard, AdminGuard, AdminMenuGuard, ChefGuard } from './shared/guard';
+
+/* Usuario */
 import { MenuComponent } from './layout/usuario/components/menu/menu.component';
 import { OrdenComponent } from './layout/usuario/components/orden/orden.component';
 import { EstadisticasComponent } from './layout/usuario/components/estadisticas/estadisticas.component';
@@ -16,16 +18,21 @@ import { AmigosComponent } from './layout/usuario/components/amigos/amigos.compo
 import { CuentaComponent } from './layout/usuario/components/cuenta/cuenta.component';
 import { UsuarioComponent } from './layout/usuario/usuario.component';
 import { OrdenProcesoComponent } from './layout/usuario/components/orden-proceso/orden-proceso.component';
+
+/* Chef */
 import { ChefComponent } from './layout/chef/chef.component';
 import { NoConfirmadasComponent } from './layout/chef/components/no-confirmadas/no-confirmadas.component';
 import { ConfirmadasComponent } from './layout/chef/components/confirmadas/confirmadas.component';
+
+/* Admin Menu */
 import { AdminMenuComponent } from './layout/admin-menu/admin-menu.component';
 import { ConfigMenuComponent } from './layout/admin-menu/components/config-menu/config-menu.component';
 import { NewDishComponent } from './layout/admin-menu/components/new-dish/new-dish.component';
+
+/* Admin */
 import { AdminComponent } from './layout/admin/admin.component';
 import { AsignarRolComponent } from './layout/admin/components/asignar-rol/asignar-rol.component';
 import { ConfigSistemaComponent } from './layout/admin/components/config-sistema/config-sistema.component';
-import { GraficasComponent } from './layout/graficas/graficas.component';
 
 // Routes
 const routes: Routes = [
@@ -40,22 +47,19 @@ const routes: Routes = [
     { path: 'inicio_sesion', component: LoginComponent },
     { path: 'registro', component: SignUpComponent },
 
-
-    { path: 'graficas',  component: GraficasComponent,},
-
     /* Usuario */
     {
         path: 'usuario',
         component: UsuarioComponent,
         children: [
-            { path: 'menu', component: MenuComponent,/*  canActivate: [UsuarioGuard] */ },
-            { path: 'orden', component: OrdenComponent,/*  canActivate: [UsuarioGuard] */ },
-            { path: 'orden_proceso', component: OrdenProcesoComponent,/*  canActivate: [UsuarioGuard] */ },
-            { path: 'estadisticas', component: EstadisticasComponent,/*  canActivate: [UsuarioGuard] */ },
-            { path: 'amigos', component: AmigosComponent,/*  canActivate: [UsuarioGuard] */ },
-            { path: 'cuenta', component: CuentaComponent,/*  canActivate: [UsuarioGuard] */ },
+            { path: 'menu', component: MenuComponent, canActivate: [EstudianteGuard] },
+            { path: 'orden', component: OrdenComponent, canActivate: [EstudianteGuard] },
+            { path: 'orden_proceso', component: OrdenProcesoComponent, canActivate: [EstudianteGuard] },
+            { path: 'estadisticas', component: EstadisticasComponent, canActivate: [EstudianteGuard] },
+            { path: 'amigos', component: AmigosComponent, canActivate: [EstudianteGuard] },
+            { path: 'cuenta', component: CuentaComponent, canActivate: [EstudianteGuard] },
         ],
-        /*  canActivate: [UsuarioGuard] */
+         canActivate: [EstudianteGuard]
     },
 
     /* Administrador */
@@ -63,11 +67,11 @@ const routes: Routes = [
         path: 'admin',
         component: AdminComponent,
         children: [
-            { path: 'estadisticas', component: EstadisticasComponent/* , canActivate: [AdministratorGuard]  */},
-            { path: 'asignar_rol', component: AsignarRolComponent/* , canActivate: [AdministratorGuard]  */},
-            { path: 'config_sistema', component: ConfigSistemaComponent/* , canActivate: [AdministratorGuard]  */}
+            { path: 'estadisticas', component: EstadisticasComponent, canActivate: [AdminGuard] },
+            { path: 'asignar_rol', component: AsignarRolComponent, canActivate: [AdminGuard] },
+            { path: 'config_sistema', component: ConfigSistemaComponent, canActivate: [AdminGuard] }
         ],
-        /* canActivate: [AdministratorGuard] */
+        canActivate: [AdminGuard]
     },
     
     /* AdminMenu */
@@ -75,10 +79,10 @@ const routes: Routes = [
         path: 'admin_menu',
         component: AdminMenuComponent,
         children: [
-            { path: 'config_menu', component: ConfigMenuComponent, /* canActivate: [AdminMenuGuard]  */ },
-            { path: 'new_dish', component: NewDishComponent, /* canActivate: [AdminMenuGuard]  */ },
+            { path: 'config_menu', component: ConfigMenuComponent, canActivate: [AdminMenuGuard] },
+            { path: 'new_dish', component: NewDishComponent, canActivate: [AdminMenuGuard] },
         ],
-        // canActivate: [AdminMenuGuard]
+        canActivate: [AdminMenuGuard]
     },
 
     /* Chef */
@@ -86,10 +90,10 @@ const routes: Routes = [
         path: 'chef',
         component: ChefComponent,
         children: [
-            { path: 'no_confirmadas', component: NoConfirmadasComponent, /* canActivate: [ChefGuard]  */ },
-            { path: 'confirmadas', component: ConfirmadasComponent, /* canActivate: [ChefGuard]  */ },
+            { path: 'no_confirmadas', component: NoConfirmadasComponent, canActivate: [ChefGuard] },
+            { path: 'confirmadas', component: ConfirmadasComponent, canActivate: [ChefGuard] },
         ],
-        // canActivate: [ChefGuard]
+        canActivate: [ChefGuard]
     },
 ];
 

@@ -38,13 +38,12 @@
             <div class="col-sm">
               <label>Provincia</label>
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-                <select class="form-control form-control-lg" formControlName="nationality"
-                  [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }" #nationality
-                  (change)="get_residence(nationality.value)">
-                  <option *ngFor="let item of nationalities">{{item}}</option>
+                <select class="form-control form-control-lg" formControlName="provinceName"
+                  [ngClass]="{ 'is-invalid': submitted && f.provinceName.errors }">
+                  <option *ngFor="let item of provincias__">{{item}}</option>
                 </select>
-                <div *ngIf="submitted && f.nationality.errors" class="e_input">
-                  <div *ngIf="f.nationality.errors.required">La Provincia es requerida</div>
+                <div *ngIf="submitted && f.provinceName.errors" class="e_input">
+                  <div *ngIf="f.provinceName.errors.required">La Provincia es requerida</div>
                 </div>
               </div>
             </div>
@@ -54,8 +53,8 @@
             <div class="col-sm">
               <label>Teléfono</label>
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-                <input type="tel" class="form-control" (focus)="focus=true" (blur)="focus=false"
-                  formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                <input type="tel" class="form-control" (focus)="focus=true" (blur)="focus=false" formControlName="phone"
+                  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                 <div *ngIf="submitted && f.phone.errors" class="e_input">
                   <div *ngIf="f.phone.errors.required">El teléfono es requerido</div>
                   <div *ngIf="f.phone.errors.pattern">El formato de teléfono debe ser ####-####</div>
@@ -68,9 +67,10 @@
             <div class="col-sm">
               <label>Gustos</label>
               <div class="form-group">
-                <div class="form-check-inline" *ngFor="let g of gustos">
+                <div class="form-check-inline" *ngFor="let p of preferences">
                   <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="optradio">{{g}}
+                    <input type="checkbox" class="form-check-input" name="optradio"
+                      (click)="add_preference(p.preference)">{{p.preference}}
                   </label>
                 </div>
               </div>

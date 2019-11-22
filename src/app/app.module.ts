@@ -21,7 +21,6 @@ import { NavbarOfficialComponent } from './shared/navbar/navbar-official/navbar-
 import { NavbarAdministratorComponent } from './shared/navbar/navbar-administrator/navbar-administrator.component';
 
 // Guards -> Provider
-import { AdministratorGuard, OfficialGuard, PassengerGuard } from './shared';
 import { UsuarioComponent } from './layout/usuario/usuario.component';
 import { CuentaComponent } from './layout/usuario/components/cuenta/cuenta.component';
 import { EstadisticasComponent } from './layout/usuario/components/estadisticas/estadisticas.component';
@@ -42,6 +41,9 @@ import { AsignarRolComponent } from './layout/admin/components/asignar-rol/asign
 import { ConfigSistemaComponent } from './layout/admin/components/config-sistema/config-sistema.component';
 import { NavbarAdminComponent } from './shared/navbar/navbar-admin/navbar-admin.component';
 import { GraficasComponent } from './layout/graficas/graficas.component';
+
+/* Guards */
+import { ChefGuard, EstudianteGuard, AdminGuard, AdminMenuGuard } from './shared';
 
 
 @NgModule({
@@ -84,9 +86,10 @@ import { GraficasComponent } from './layout/graficas/graficas.component';
         ReactiveFormsModule
     ],
     providers: [
-        AdministratorGuard,
-        OfficialGuard,
-        PassengerGuard
+        ChefGuard,
+        EstudianteGuard,
+        AdminGuard,
+        AdminMenuGuard,
     ],
     bootstrap: [AppComponent]
 })

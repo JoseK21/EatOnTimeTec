@@ -11,7 +11,7 @@
         <div class="content" style="text-align: left;">
           <label>Id</label>
           <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-            <input type="text" class="form-control" placeholder="Id" (focus)="focus=true" (blur)="focus=false"
+            <input type="number" min="0" max="9999999999" class="form-control" placeholder="Id" (focus)="focus=true" (blur)="focus=false"
               formControlName="user_id" [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }">
 
             <div *ngIf="submitted && f.user_id.errors">

@@ -20,143 +20,143 @@ export class SignUpComponent implements OnInit {
   focus;
   focus1;
 
-  gustos = ["Pastas", "Vegeterariano", "Carnes", "Ensaladas"];
-  
+  provincias__ = ["0","1","2","3","4","5"];
 
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
+  fake_datas_random = 2020202020;
   ngOnInit() {
 
-    this.getNationalities();
+    this.get_preferences();
+    this.getProvince();
 
     this.signUpForm = this.formBuilder.group({
-      id_user: ['', Validators.required],
-      rol: "passenger",
-      name: ['', Validators.required],
-      date_birth: ['', Validators.required],
-      nationality: ['', Validators.required],
-      residence: ['', Validators.required],
-      phone: ['', [Validators.required,  Validators.pattern('[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]')]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      provinceName: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]')]],
+      /* rol: "Estudiante", */
+      id_user: this.fake_datas_random,
+      name: 'Juan Pablo Esquivel Moya',
+      password: String(this.fake_datas_random)
     });
+  }
+
+  getRandomInt() {
+    let min = Math.ceil(2000000000);
+    let max = Math.floor(2019000000);
+    return Math.floor(Math.random() * (max - min)) + min; 
   }
 
   get f() { return this.signUpForm.controls; }
 
   onSubmit() {
-    this.submitted = true;
-    
-    
     if (this.signUpForm.invalid) {
+      this.submitted = true;
       console.log("registerForm.invalid");
       return;
     }
 
-    /* Swal.fire({
-      title: 'Sweet!',
-      text: 'Modal with a custom image.',
-      imageUrl: 'https://unsplash.it/400/200',
-      imageWidth: 400,
-      imageHeight: 200,
-      imageAlt: 'Custom image',
-      timer: 1500
-    }) */
-
+    this.submitted = false;
     Swal.fire({
       position: 'center',
-      title: 'Facebook Window',
+      title: 'Facebook',
       showConfirmButton: false,
-      
     })
 
+    this.fake_datas_random = this.getRandomInt() ;
+
+    Swal.fire({
+      title: 'Facebook!',
+      text: 'Cuenta : ' + String(this.fake_datas_random) ,
+      imageUrl: 'assets/facebook.png',
+      imageWidth: 300,
+      imageHeight: 300,
+      imageAlt: 'Custom image',
+    })
+
+// Sino meter los datos aqui
     let data = this.signUpForm.value;
+    console.log(data);
+    
     this.http
-      .post<any>(urls.api + 'register', data, cors.httpOptions)
-      .subscribe(data => {
-        if (!data.message) {
+      .post<any>(urls.api + 'person/signup', data, cors.httpOptions)
+      .subscribe(response_api => {
+        if (response_api.length == 0) {
           Swal.fire({
-            title: 'Account created',
-            text: "Your account was created",
+            type: 'error',
+            title: 'Oops...',
+            text: "Carné registrado",
+          })
+        } else {
+          Swal.fire({
+            title: 'Cuenta creada',
+            text: "Su cuenta fue creada con exito",
             type: 'success',
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK'
           }).then((result) => {
-            this.router.navigateByUrl('/' + data.jsonResponse.rol);
-          })
-        } else {
-          Swal.fire({
-            type: 'error',
-            title: 'Oops...',
-            text: data.message,
+            this.onLoggedin("E", data.user_id);
+            this.router.navigateByUrl('/usuario');
           })
         }
       });
   }
-  
+
+  onLoggedin(rol, user_id) {
+    localStorage.clear();
+    localStorage.setItem('isLoggedin', 'true');
+    localStorage.setItem('is-' + rol, 'true');
+    localStorage.setItem('user_id', user_id);
+  }
+
   onReset() {
     this.submitted = false;
     this.signUpForm.reset();
   }
-  // Lista de numeros
-  listPhone: Array<String> = [];
 
-  addPhone() {
-    Swal.fire({
-      title: 'New Phone',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Add',
-      showLoaderOnConfirm: true,
-      preConfirm: (new_phone) => {
-        this.listPhone.push(new_phone);
-      }
-    });
-    console.log(this.listPhone);
-  }
-
-
-  /* getNationalities  */
-  nationalities = [];
-  getNationalities() {
-    console.log('getNationalities()');
+  /* getProvince  */
+  provincias: Array<String> = [];
+  getProvince() {
+    console.log('getProvince()');
+    this.provincias = [];
     this.http
-      .get<any>(urls.api + 'getNationalities', cors.httpOptions)
-      .subscribe(data => {
-        if (data.resp) {
-          let jsonNationalities = JSON.parse(JSON.stringify(data.resp));
-          for (let index = 0; index < jsonNationalities.length; index++) {
-            let tem = JSON.parse(JSON.stringify(jsonNationalities[index]));
-            this.nationalities.push(tem.nationality);
-          }
-        } else {
-          console.log("Error al cargar las nacionalidades");
+      .get<any>(urls.api + 'person/provinces', cors.httpOptions)
+      .subscribe(response_api => {
+        if (response_api.lenght == 0) {
+          this.provincias = [];
+          console.log("Error al cargar las provincias");
+        } 
+        else {
+          this.provincias = response_api;
+          /* for (let index = 0; index < response_api.length; index++) {
+            let tem = JSON.parse(JSON.stringify(response_api[index]));
+            this.provincias.push(tem.provinceName);
+          } */
         }
       });
   }
 
 
-  get_residence(nac) {
-    this.getResidences(nac);
-  }
-
-  /* getResidences */
-  residences = [];
-  getResidences(nacionality: string) {
-    console.log('getResidences()');
+  preferencias: Array<String> = [];
+  get_preferences() {
+    console.log('get_preferences()');
+    this.preferencias = [];
     this.http
-      .get<any>(urls.api + 'getResidences/' + nacionality, cors.httpOptions)
-      .subscribe(data => {
-        if (data.jsonResidences) {
-          this.residences = JSON.parse(JSON.stringify(data.jsonResidences)).residence;
+      .get<any>(urls.api + 'default/preferences', cors.httpOptions)
+      .subscribe(response_api => {
+        if (response_api.length == 0) {
+          this.preferencias = [];
+          console.log("Error al cargar las preferencias/gustos");
         } else {
-          console.log("Error al cargar las residencias");
+          this.preferencias = response_api;
         }
       });
+  }
+
+  my_preference = [];
+  add_preference(name_preference){
+    this.my_preference.push(name_preference);
   }
 }
 

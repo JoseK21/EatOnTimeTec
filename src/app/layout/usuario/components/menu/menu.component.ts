@@ -85,8 +85,9 @@ export class MenuComponent implements OnInit {
     await Swal.fire({
       title: 'Añadir platillo',
       html:
-        'Propio <input id="propio" type="checkbox" checked onclick=" if(document.getElementById(\'propio\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'true\')} else{document.getElementById(\'select_amigos\').disabled=false} ">' +
-        'Amigo <select id="select_amigos" disabled> ' + html_options + ' </select> ',
+        '<input id="propio" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked onclick="if(document.getElementById(\'propio\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'true\');document.getElementById(\'amigo\').checked=false} else{document.getElementById(\'select_amigos\').disabled=false; document.getElementById(\'amigo\').checked=true } ">  Propio  ' +
+        '<input id="amigo" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">  Amigo' +
+        '<select id="select_amigos" disabled> ' + html_options + ' </select> ',
       focusConfirm: false,
       preConfirm: () => {
         console.log((<HTMLInputElement>document.getElementById('propio')).checked);
@@ -104,3 +105,34 @@ export class MenuComponent implements OnInit {
 
   }
 }
+
+
+
+/* 
+
+html:
+        '<input id="propio" type="checkbox" checked onclick=" if(document.getElementById(\'propio\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'true\');document.getElementById(\'amigo\').checked=false} else{document.getElementById(\'select_amigos\').disabled=false; document.getElementById(\'amigo\').checked=true } ">  Propio  ' +
+        '<input id="amigo" type="checkbox" onclick=" if(document.getElementById(\'amigo\').checked) { document.getElementById(\'select_amigos\').setAttribute(\'disabled\',\'false\'); document.getElementById(\'propio\').checked=false} else{document.getElementById(\'select_amigos\').disabled=true; document.getElementById(\'propio\').checked=true } ">  Amigo' +
+        '<select id="select_amigos" disabled> ' + html_options + ' </select> ',
+      focusConfirm: false,
+
+
+ html:
+        '<input id="propio" type="checkbox" checked onclick="'+
+        'if(document.getElementById(\'propio\').checked) '+
+        '   { console.log("100");'+
+        '     document.getElementById(\'select_amigos\').disasbled=true;'+
+        '     document.getElementById(\'amigo\').checked=false'+
+        '}else{ console.log("011");'+
+        '       document.getElementById(\'select_amigos\').disabled=false;'+
+        '       document.getElementById(\'amigo\').checked=true } "> Propio   ' +
+        '<input id="amigo" type="checkbox" onclick=" '+
+        'if( document.getElementById(\'amigo\').checked) { '+
+        '   console.log("011"); '+
+        '   document.getElementById(\'propio\').checked=false;'+
+        '   document.getElementById(\'select_amigos\').disabled=false;'+
+        '} else{console.log("100"); '+
+        '       document.getElementById(\'propio\').checked=true;'+
+        '       document.getElementById(\'select_amigos\').disasbled=true} ">Amigo <select id="select_amigos" disabled> ' + html_options + ' </select> ',
+      focusConfirm: false,
+*/
