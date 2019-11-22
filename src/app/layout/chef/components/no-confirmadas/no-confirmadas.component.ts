@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoConfirmadasComponent implements OnInit {
 
+  orden_list = [];
   constructor() { }
 
   ngOnInit() {

@@ -1,3 +1,68 @@
-<p>
-  new-dish works!
-</p>
+<div class="container">
+  <div class="content-center">
+    <div class="card card-login card-plain">
+      <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="header header-primary" style="text-align: left;">
+          Nuevo Platillo
+        </div>
+        <div class="content" style="text-align:left">
+          <div class="row">
+            <div class="col-sm">
+              <label>Precio</label>
+              <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="number" class="form-control" (focus)="focus=true" (blur)="focus=false"
+                  formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <div *ngIf="submitted && f.email.errors" class="e_input">
+                  <div *ngIf="f.email.errors.required">El precio es requerido</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <label>Tiempo de preparación</label>
+              <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="tel" class="form-control" (focus)="focus=true" (blur)="focus=false" formControlName="phone"
+                  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                <div *ngIf="submitted && f.phone.errors" class="e_input">
+                  <div *ngIf="f.phone.errors.required">El tiempo de preparación es requerido</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <label>Calorias</label>
+              <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="tel" class="form-control" (focus)="focus=true" (blur)="focus=false" formControlName="phone"
+                  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                <div *ngIf="submitted && f.phone.errors" class="e_input">
+                  <div *ngIf="f.phone.errors.required">Las calorias son requeridas</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <label>Ingredientes</label>
+              <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="tel" class="form-control" (focus)="focus=true" (blur)="focus=false" formControlName="phone"
+                  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                <div *ngIf="submitted && f.phone.errors" class="e_input">
+                  <div *ngIf="f.phone.errors.required">Los ingredientes son requeridos</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="footer text-center">
+          <button class="btn btn-primary btn-round"> Añadir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

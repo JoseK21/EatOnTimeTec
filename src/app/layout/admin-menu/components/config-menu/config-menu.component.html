@@ -1,3 +1,35 @@
-<p>
-  config-menu works!
-</p>
+<div class="content-center brand">
+  <div id="accordion">
+    <div class="card" style="margin-bottom: 0 !important;" *ngFor="let menu of menu_list">
+      <div class="card-header card_color" attr.id="heading{{menu.short_name}}">
+        <div class="row justify-content-between">
+          <div class="col align-self-left">
+            <button class="btn btn-link btn-block" data-toggle="collapse"
+              attr.data-target="#collapse{{menu.short_name}}" aria-expanded="false"
+              attr.aria-label="collapse{{menu.short_name}}" style="text-align: left; font-size: 14px; color: black;">
+              {{menu.name}}
+            </button>
+          </div>
+
+          <div class="col-2 align-self-center" (click)="remove(menu.name)">
+            <i class="fa fa-delete"></i>
+          </div>
+          <div class="col-2 align-self-center" (click)="edit(menu.name)">
+            <i class="fa fa-edit"></i>
+          </div>
+        </div>
+      </div>
+
+      <div attr.id="collapse{{menu.short_name}}" class="collapse" attr.aria-labelledby="heading{{menu.short_name}}"
+        data-parent="#accordion" style="text-align: left;">
+        <div class="card-body">
+          <p>Precio : {{menu.precio}} </p>
+          <p>Tiempo Preparación : {{menu.tiempo}}</p>
+          <p>Calorias : {{menu.calorias}}</p>
+          <p>Ingredientes : {{menu.ingredientes}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</div>

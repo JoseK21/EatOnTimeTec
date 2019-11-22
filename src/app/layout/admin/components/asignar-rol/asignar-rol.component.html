@@ -1,3 +1,43 @@
-<p>
-  asignar-rol works!
-</p>
+<form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="row align-items-center">
+      <div class="col-8">
+  
+        <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+          <input class="form-control" type="search" placeholder="Nombre/Télefono" class="form-control" (focus)="focus=true"
+            (blur)="focus=false" formControlName="amigo" [ngClass]="{ 'is-invalid': submitted && f.amigo.errors }">
+        </div>
+  
+        <div *ngIf="submitted && f.amigo.errors">
+          <div *ngIf="f.amigo.errors.required" class="e_input">El nombre/télefono del amigo es requerido</div>
+        </div>
+  
+      </div>
+      <div class="col"><button class="btn btn-primary">Buscar</button></div>
+    </div>
+  </form>
+  
+  <div class="card border-primary">
+    <div class="card-body">
+      <div class="container">
+        <div class="row justify-content-between" *ngFor="let amigo of amigos_list">
+          <div class="col" style="text-align: left;">
+            {{amigo.name}}
+          </div>
+          <div class="form-group">
+              <div class="form-check-inline" *ngFor="let p of preferences">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="optradio"
+                    (click)="edit_preference(p.preference)">{{p.preference}}
+                </label>
+              </div>
+              <div class="col"><button class="btn btn-primary">Actualizar</button></div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  <br>
