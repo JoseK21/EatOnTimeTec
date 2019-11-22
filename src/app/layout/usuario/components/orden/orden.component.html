@@ -4,9 +4,9 @@
   </div>
   <div class="card-body">
     <div class="container">
-      <div class="row justify-content-between">
+      <div class="row justify-content-between" *ngFor="let item of new_list_propios">
         <div class="col" style="text-align: left;">
-          Platillo # 2
+          {{item}}
         </div>
         <div class="col-4" style="right: 0px;position: absolute;">
             <i class="far fa-comment"></i> &nbsp;&nbsp;
@@ -23,9 +23,9 @@
   </div>
   <div class="card-body">
     <div class="container">
-      <div class="row justify-content-between">
+      <div class="row justify-content-between" *ngFor="let item of new_list_amigos">
         <div class="col" style="text-align: left;">
-          One of three columns
+          {{item}}
         </div>
         <div class="col-4" style="right: 0px;position: absolute;">
           <i class="far fa-comment"></i> &nbsp;&nbsp;

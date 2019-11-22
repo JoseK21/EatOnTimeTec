@@ -12,13 +12,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
+  array_dishes: Array<String> = [];
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {
-   
+
     this.get_recommendations();
     this.get_menu();
+    this.get_user_friends()
   }
 
   color_menu_b = 'primary';
@@ -41,8 +42,11 @@ export class MenuComponent implements OnInit {
   }
 
 
-  async add(name) {
 
+  lista_usuario_orden = [];
+  lista_platillo_orden = [];
+
+  async add(name) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -51,11 +55,9 @@ export class MenuComponent implements OnInit {
       buttonsStyling: false
     })
 
-    let opciones_amigos = ["Daniel", "José", "Marcelo", "Sebastian"];
-
     let html_options = "";
-    opciones_amigos.forEach(element => {
-      html_options += " <option>" + element + "</option> ";
+    this.amigos_list.forEach(a_l => {
+      html_options += " <option>" + a_l['friend_name'] + "</option> ";
     });
 
 
@@ -71,6 +73,36 @@ export class MenuComponent implements OnInit {
         console.log((<HTMLInputElement>document.getElementById('propio')).checked);
         console.log((<HTMLInputElement>document.getElementById('amigo')).checked);
         console.log((<HTMLInputElement>document.getElementById('select_amigos')).value);
+
+        if ((<HTMLInputElement>document.getElementById('propio')).checked) {
+          this.lista_usuario_orden.push(localStorage.getItem('user_id'));
+          this.lista_platillo_orden.push(name);
+
+          localStorage.setItem('lista_usuario_orden', String(this.lista_usuario_orden));
+          localStorage.setItem('lista_platillo_orden', String(this.lista_platillo_orden));
+
+        } else {
+
+          let id_amigo;
+          this.amigos_list.forEach(element => {
+            let amigo_name = (<HTMLInputElement>document.getElementById('select_amigos')).value;
+            if (element['friend_name'] == amigo_name) {
+              id_amigo = element['friend_id'];
+            }
+          });
+          console.log(id_amigo);
+
+          this.lista_usuario_orden.push(id_amigo);
+          this.lista_platillo_orden.push(name);
+
+          localStorage.setItem('lista_usuario_orden', String(this.lista_usuario_orden));
+          localStorage.setItem('lista_platillo_orden', String(this.lista_platillo_orden));
+
+
+
+        }
+
+
       }
     }).then((result) => {
       if (result.value) {
@@ -85,13 +117,39 @@ export class MenuComponent implements OnInit {
   }
 
 
+  crear_orden(){
+    this.recommendations = [];
+    this.http
+      .get<any>(urls.api + 'menu/get/recommendations/' + localStorage.getItem('user_id'), cors.httpOptions)
+      .subscribe(response_api => {
+        console.log('Recomendaciones');
+        console.log(response_api);
+
+        if (response_api.lenght == 0) {
+          this.recommendations = [];
+          console.log("Error al cargar el recommendations");
+        }
+        else {
+          this.recommendations = response_api;
+          let i = 0;
+          this.recommendations.forEach(element => {
+            var name_short = element['name'].replace(/\s/g, '');
+            this.recommendations[i]['short_name'] = name_short;
+            i++;
+          });
+        }
+      });
+
+
+  }
+
   menu: Array<String> = [];
   get_menu() {
     console.log('get_menu()');
     this.menu = [];
     this.http
       .get<any>(urls.api + 'menu/get', cors.httpOptions)
-      .subscribe(response_api => {        
+      .subscribe(response_api => {
         if (response_api.lenght == 0) {
           this.menu = [];
           console.log("Error al cargar el menu");
@@ -105,27 +163,27 @@ export class MenuComponent implements OnInit {
           this.menu.forEach(element => {
             var name_short = element['name'].replace(/\s/g, '');
             this.menu[i]['short_name'] = name_short;
-            
-           
 
-            console.log(element['name']);           
-            console.log('Rec: ',  this.recommendations);   
+
+
+            console.log(element['name']);
+            console.log('Rec: ', this.recommendations);
             this.recommendations.forEach(rec => {
               console.log(rec);
-              
-              if (rec['name'] == element['name']) {              
+
+              if (rec['name'] == element['name']) {
                 this.menu[i]['recommendation'] = true;
-              }    
-              else{
+              }
+              else {
                 this.menu[i]['recommendation'] = false;
-              }     
+              }
             });
             i++;
           });
         }
       }, error => {
         console.log(error.error.text);
-      }   
+      }
       );
   }
 
@@ -138,22 +196,41 @@ export class MenuComponent implements OnInit {
     this.http
       .get<any>(urls.api + 'menu/get/recommendations/' + localStorage.getItem('user_id'), cors.httpOptions)
       .subscribe(response_api => {
-        console.log('Recomendaciones');        
+        console.log('Recomendaciones');
         console.log(response_api);
-        
+
         if (response_api.lenght == 0) {
           this.recommendations = [];
           console.log("Error al cargar el recommendations");
         }
         else {
           this.recommendations = response_api;
-
           let i = 0;
           this.recommendations.forEach(element => {
             var name_short = element['name'].replace(/\s/g, '');
             this.recommendations[i]['short_name'] = name_short;
             i++;
           });
+        }
+      });
+  }
+
+
+  amigos_list: Array<String> = [];
+  get_user_friends() {
+    console.log('get_user_friends()');
+    this.amigos_list = [];
+    this.http
+      .get<any>(urls.api + 'friend/get/' + localStorage.getItem('user_id'), cors.httpOptions)
+      .subscribe(response_api => {
+        console.log(response_api);
+
+        if (response_api.lenght == 0) {
+          this.amigos_list = [];
+          console.log("Error al cargar las amigos_list");
+        }
+        else {
+          this.amigos_list = response_api;
         }
       });
   }
