@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
   provincias__ = ["0", "1", "2", "3", "4", "5"];
   provincias: any = [];
 
-  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient, private service: ServiceService,  private call: OtherService) { }
+  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient, private service: ServiceService, private call: OtherService) { }
 
   fake_datas_random = 2020202020;
   ngOnInit() {
@@ -37,6 +37,7 @@ export class SignUpComponent implements OnInit {
       }, error => {
         this.provincias = [];
       });
+      alert()
 
     //this.provincias = this.call.get_provinces();
     // this.getProvince();
