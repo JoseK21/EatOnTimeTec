@@ -10,6 +10,11 @@ export class AdminMenuService {
 
   constructor() { }
 
+  ngOnInit() {
+    this.remove_datas()
+   }
+
+
   add_amigo(id) {
     this.lista_amigos.push(id);
   }

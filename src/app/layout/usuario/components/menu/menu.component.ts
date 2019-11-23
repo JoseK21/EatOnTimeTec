@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { urls } from '../../../../config/urls';
 import { cors } from '../../../../config/cors';
 import Swal from 'sweetalert2';
+import { ServiceService } from 'app/shared/services/service.service';
 
 @Component({
   selector: 'app-menu',
@@ -13,13 +14,15 @@ import Swal from 'sweetalert2';
 })
 export class MenuComponent implements OnInit {
   array_dishes: Array<String> = [];
-  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
+  constructor(private service: ServiceService, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {
 
     this.get_recommendations();
     this.get_menu();
-    this.get_user_friends()
+
+    this.get_user_friends();
+    
   }
 
   color_menu_b = 'primary';
@@ -47,6 +50,7 @@ export class MenuComponent implements OnInit {
   lista_platillo_orden = [];
 
   async add(name) {
+   
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -75,11 +79,15 @@ export class MenuComponent implements OnInit {
         console.log((<HTMLInputElement>document.getElementById('select_amigos')).value);
 
         if ((<HTMLInputElement>document.getElementById('propio')).checked) {
-          this.lista_usuario_orden.push(localStorage.getItem('user_id'));
+          
+          this.service.add_user(localStorage.getItem('user_id'));
+          this.service.add_dish(name);
+
+        /*   this.lista_usuario_orden.push(localStorage.getItem('user_id'));
           this.lista_platillo_orden.push(name);
 
           localStorage.setItem('lista_usuario_orden', String(this.lista_usuario_orden));
-          localStorage.setItem('lista_platillo_orden', String(this.lista_platillo_orden));
+          localStorage.setItem('lista_platillo_orden', String(this.lista_platillo_orden)); */
 
         } else {
 
@@ -92,17 +100,15 @@ export class MenuComponent implements OnInit {
           });
           console.log(id_amigo);
 
-          this.lista_usuario_orden.push(id_amigo);
+          this.service.add_user(id_amigo);
+          this.service.add_dish(name);
+
+          /* this.lista_usuario_orden.push(id_amigo);
           this.lista_platillo_orden.push(name);
 
           localStorage.setItem('lista_usuario_orden', String(this.lista_usuario_orden));
-          localStorage.setItem('lista_platillo_orden', String(this.lista_platillo_orden));
-
-
-
+          localStorage.setItem('lista_platillo_orden', String(this.lista_platillo_orden)); */
         }
-
-
       }
     }).then((result) => {
       if (result.value) {
