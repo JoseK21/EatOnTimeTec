@@ -17,7 +17,7 @@ export class ServiceService {
 
 
   add_user(id) {
-    this.lista_users.push(id);
+    this.lista_users.push(Number(id));
   }
 
   add_dish(name) {

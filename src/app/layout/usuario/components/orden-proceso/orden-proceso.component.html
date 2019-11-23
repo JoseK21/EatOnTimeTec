@@ -14,17 +14,20 @@
 </div>
 
 
-<div class="container" style="text-align: left;">  
+<div class="container" style="text-align: left;">
   <br>
-  <div class="progress-primary">
-    <span class="progress-badge">Estado <span class="progress-value">60%</span></span>
-    <ngb-progressbar [value]="60"></ngb-progressbar><br>
+  <div class="progress-primary" [hidden]="!jl_disable">
+    <span class="progress-badge">Estado <span class="progress-value">{{subscribeBar}}%</span></span>
+    <ngb-progressbar [value]="subscribeBar"></ngb-progressbar><br>
   </div>
 
-  Tiempo restante para modificar :  {{subscribeTimer}}s
+  <div class="row" style="text-align: left;" [hidden]="jl_disable">
+    Tiempo restante para cancelar : {{subscribeTimer}}s
+  </div>
   <div class="row justify-content-center">
     <div class="col-10">
-      <button type="button" class="btn btn-primary btn-block" onclick="cancelarOrden()">Cancelar Orden</button>    
+      <button type="button" class="btn btn-primary btn-block" onclick="cancelarOrden()" [hidden]="jl_disable">Cancelar
+        Orden</button>
     </div>
   </div>
 </div>

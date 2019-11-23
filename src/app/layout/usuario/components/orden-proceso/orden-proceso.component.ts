@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { timer } from 'rxjs';
 
 @Component({
@@ -13,18 +14,46 @@ export class OrdenProcesoComponent implements OnInit {
   ngOnInit() {
     this.oberserableTimer();
   }
+
+
+  jl_disable = false;
   subscribeTimer;
-  timeLeft=1000;
+  timeLeft = 120;
+
+  TIME_1 ;
   oberserableTimer() {
-    const source = timer(1000, 2000);
-    const abc = source.subscribe(val => {
-      console.log(val, '-');
+    const source = timer(1000, 100);
+    this.TIME_1 = source.subscribe(val => {
       this.subscribeTimer = this.timeLeft - val;
+      if (this.subscribeTimer <= 0) {
+        this.TIME_1.unsubscribe();
+        this.jl_disable = true;
+        this.oberserableBar();
+      }
     });
   }
 
-  cancelarOrden(){
+  TIME_2;
+  subscribeBar;
+  timeRight = 0;
+  oberserableBar() {
+    const source = timer(1000, 2500);
+    this.TIME_2 = source.subscribe(val => {
+      this.subscribeBar = this.timeRight + val;
+      if (this.subscribeBar >= 100) {
+        // this.subscribeBar.unsubscribe();
+        this.TIME_2.unsubscribe();
+        Swal.fire(
+          'Notificación',
+          'Orden Lista',
+          'success'
+        )
+      }
+    });
+  }
+
+  cancelarOrden() {
     console.log("cancelarOrden");
-    
+
   }
 }

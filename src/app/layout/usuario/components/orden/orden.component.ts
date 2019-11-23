@@ -146,7 +146,9 @@ export class OrdenComponent implements OnInit {
             'Puede cancelar su orden en un lapso de 2 minutos',
             'success'
           );
-          this.router.navigateByUrl('/orden_proceso');
+          //this.router.navigateByUrl('orden_proceso');
+          this.router.navigateByUrl('./orden_proceso');
+
         }
       }, error => {
         console.log(error);
