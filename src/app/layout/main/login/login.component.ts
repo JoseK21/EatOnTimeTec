@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
     let data = this.loginForm.value;
     console.log(data);
 
-    this.http
+    this.ingresar(data,"Inicio de sesión exitoso")
+
+    /* this.http
       .post<any>(urls.api + 'login', data, cors.httpOptions)
       .subscribe(response_api => {
         console.log(response_api);
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
       }, error => {
         console.log(error.error.text);
         this.ingresar(data,error.error.text)
-      });
+      }); */
   }
 
   ingresar(data,string){

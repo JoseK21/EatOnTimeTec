@@ -47,6 +47,9 @@ export class AsignarRolComponent implements OnInit {
     let data_to_send = {};
 
     let buscar_por = "";
+
+    console.log(data.length );
+    
     if (data.length == 9) {
       data_to_send = { "phone": data.name }
       buscar_por = 'phone';

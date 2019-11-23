@@ -27,29 +27,28 @@ export class SignUpComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient, private service: ServiceService, private call: OtherService) { }
 
-  fake_datas_random = 2020202020;
+  fake_datas_random ;
   ngOnInit() {
-
+    this.fake_datas_random = this.getRandomInt();
     this.http
       .get<any>(urls.api + 'person/provinces', cors.httpOptions)
       .subscribe(resp => {
+        console.log(resp);
+        
         this.provincias = resp;
       }, error => {
         this.provincias = [];
       });
-      alert()
 
-    //this.provincias = this.call.get_provinces();
-    // this.getProvince();
+    this.get_preferences();
 
     this.signUpForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       provinceName: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern('[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]')]],
       /* rol: "Estudiante", */
-      id_user: this.fake_datas_random,
+      idUser: this.fake_datas_random,
       name: 'Juan Pablo Esquivel Moya',
-      password: String(this.fake_datas_random)
     });
   }
 
@@ -70,11 +69,11 @@ export class SignUpComponent implements OnInit {
 
     this.submitted = false;
 
-    this.fake_datas_random = this.getRandomInt();
+    
 
     Swal.fire({
       title: 'Facebook!',
-      text: 'Cuenta : ' + String(this.fake_datas_random),
+      text: 'Cuenta : ' + this.fake_datas_random,
       imageUrl: 'assets/facebook.png',
       imageWidth: 300,
       imageHeight: 300,
@@ -84,15 +83,25 @@ export class SignUpComponent implements OnInit {
 
     let data = this.signUpForm.value;
 
+
+
     /* Metodo para obtener el id de la provincia */
 
-    let id_provincia;
+    /*  */
+
+    let key_new = {};
+
+    console.log(this.provincias);
+    
     this.provincias.forEach(element => {
       if (JSON.parse(JSON.stringify(element)).provinceName == data.provinceName) {
-        data.province = { "idProvince": data.idProvince, "provinceName": data.provinceName };
+        key_new = { "idProvince": JSON.parse(JSON.stringify(element)).idProvince, "provinceName": data.provinceName };
       }
-    });
 
+    });
+    delete data.provinceName;
+
+    data.province = key_new;
 
     console.log(data);
 
@@ -114,8 +123,7 @@ export class SignUpComponent implements OnInit {
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK'
           }).then((result) => {
-            this.onLoggedin("E", data.user_id);
-            this.router.navigateByUrl('/usuario');
+            this.router.navigateByUrl('/inicio_sesion');
           })
         }
       });

@@ -74,6 +74,9 @@ export class AmigosComponent implements OnInit {
     let data_to_send = {};
 
     let buscar_por = "";
+
+    console.log(data.lenght);
+    
     if (data.length == 9) {
       data_to_send = { "phone": data.name }
       buscar_por = 'phone';
@@ -86,6 +89,8 @@ export class AmigosComponent implements OnInit {
       .post<any>(urls.api + 'friend/find/' + buscar_por, data_to_send, cors.httpOptions)
       .subscribe(response_api => {
 
+        console.log(response_api);
+        
         if (response_api.lenght == 0) {
           Swal.fire({
             title: 'Error',
@@ -104,6 +109,8 @@ export class AmigosComponent implements OnInit {
           this.add_friend(response_api.idUser)
         }
       }, error => {
+        console.log(error);
+        
         alert('error');
       });
   }
