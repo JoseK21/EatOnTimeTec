@@ -45,7 +45,7 @@ export class AmigosComponent implements OnInit {
 
   removerAmigo(amigo_id) {
 
-    let data = { "idUser": localStorage.getItem('idUser'), "idFriend": amigo_id };
+    let data = { "idUser": localStorage.getItem('used_id'), "idFriend": amigo_id };
     console.log(amigo_id);
     this.http
       .post<any>(urls.api + '/friend/delete', data, cors.httpOptions)
@@ -90,26 +90,68 @@ export class AmigosComponent implements OnInit {
     let data = this.loginForm.value;
     console.log(data);
 
-    this.http
-      .post<any>(urls.api + 'login', data, cors.httpOptions)
-      .subscribe(data => {
+    let data_to_send = {};
 
-        if (data.message) {
+    let buscar_por = "";
+    if (data.length == 9) {
+      data_to_send = { "phone": data.name }
+      buscar_por = 'phone';
+    } else {
+      buscar_por = 'name';
+      data_to_send = { "name": data.name } /* Esta en html : name */
+    }
+
+    this.http
+      .post<any>(urls.api + 'friend/find/' + buscar_por, data_to_send, cors.httpOptions)
+      .subscribe(response_api => {
+
+        if (response_api.lenght == 0) {
           Swal.fire({
             title: 'Error',
-            text: data.message,
+            text: 'Nombre/Tèlefono no encontrado',
             type: 'error',
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK'
           })
         } else {
-
+          /* Swal.fire(
+            'Amigo encontrado',
+            response_api.name + ' es un nuevo amigo',
+            'success'
+          ); */
+          this.add_friend(response_api.idUser)
         }
       }, error => {
         alert('error');
       });
+  }
 
+  add_friend(idFriend) {
+    let data_to_send = { idUser: localStorage.getItem('used_id'), idFriend: idFriend };
+    this.http
+      .post<any>(urls.api + 'friend/add', data_to_send, cors.httpOptions)
+      .subscribe(response_api => {
+        if (response_api.lenght == 0) {
+          Swal.fire({
+            title: 'Error',
+            text: 'Amigo no exadido a la lista de amigos',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          })
+        } else {
+          Swal.fire(
+            'Amigo guardado',
+            'Registro de nuevo amigo correcto',
+            'success'
+          );
+          this.get_user_friends();
+        }
+      }, error => {
+        alert('error');
+      });
   }
 
 

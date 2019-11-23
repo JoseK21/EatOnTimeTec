@@ -28,6 +28,12 @@ export class OrdenComponent implements OnInit {
 
   ngOnInit() {
     this.load_datas();
+
+    if (!localStorage.getItem('F')) {
+      this.funcionario = true;
+    } else {
+      this.funcionario = false;
+    }
   }
 
   load_datas() {
@@ -93,64 +99,106 @@ export class OrdenComponent implements OnInit {
 
   lista_observaciones = [];
   acepto;
-  comprar() {    
+  funcionario = false;
+  comprar() {
     let pts = "123";
-    Swal.fire({
-      title: '¿Quieres aplicar un descuento?',
-      text: 'Tus puntos totales son: ' + pts,
-      html:
-      'Tus puntos totales son: ' + pts +
-      '<br/>¿Cuántos puntos quieres usar? <input id="puntos" type="number" min="1" max="' + pts + '">',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Utilizar',
-      cancelButtonText: 'No'
 
-    }).then((result) => {
-      console.log('Puntos utilizados : ' + (<HTMLInputElement>document.getElementById('puntos')).value);
-      if (result.value) {
-        Swal.fire(
-          'Compra realizada',
-          'Descuento aplicado con exito',
-          'success'
-        );
+    console.log(Boolean(localStorage.getItem('F')));
 
-        
-    let data = {
-      users: this.service.get_lista_users(),
-      dishes: this.service.get_lista_dishes(),
-      observations: this.lista_observaciones
-    }
 
-    console.log(data);
-    this.http
-      .post<any>(urls.api + 'order/place', data, cors.httpOptions)
-      .subscribe(response_api => {
-        console.log(response_api);
-        // {"idOrder":568,"idClient":116920112,"idCook":334342343,"date":1574382420000,"rating":null,"observation":"No observation"}
-        if (response_api.length == 0) {
-          Swal.fire({
-            title: 'Error',
-            text: 'Error al crear la orden, intente de nuevo',
-            type: 'error',
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          })
-        } else {
+    if (!localStorage.getItem('F')) {
+      this.funcionario = true;
+
+      Swal.fire({
+        title: '¿Quieres aplicar un descuento?',
+        text: 'Tus puntos totales son: ' + pts,
+        html:
+          'Tus puntos totales son: ' + pts +
+          '<br/>¿Cuántos puntos quieres usar? <input id="puntos" type="number" min="1" max="' + pts + '">',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Utilizar',
+        cancelButtonText: 'No'
+
+      }).then((result) => {
+        console.log('Puntos utilizados : ' + (<HTMLInputElement>document.getElementById('puntos')).value);
+        if (/* result.value */ true) {
           Swal.fire(
-            'Orden registrada',
-            'Puede cancelar su orden en un lapso de 2 minutos',
+            'Compra realizada',
+            'Descuento aplicado con exito',
             'success'
-          );
-          this.gotoProductDetailsV2('orden_proceso');
+          ); let data = {
+            users: this.service.get_lista_users(),
+            dishes: this.service.get_lista_dishes(),
+            observations: this.lista_observaciones
+          }
+          console.log(data);
+          this.http
+            .post<any>(urls.api + 'order/place', data, cors.httpOptions)
+            .subscribe(response_api => {
+              console.log(response_api);
+              // {"idOrder":568,"idClient":116920112,"idCook":334342343,"date":1574382420000,"rating":null,"observation":"No observation"}
+              if (response_api.length == 0) {
+                Swal.fire({
+                  title: 'Error',
+                  text: 'Error al crear la orden, intente de nuevo',
+                  type: 'error',
+                  showCancelButton: false,
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK'
+                })
+              } else {
+                Swal.fire(
+                  'Orden registrada',
+                  'Puede cancelar su orden en un lapso de 2 minutos',
+                  'success'
+                );
+                this.gotoProductDetailsV2('orden_proceso');
+              }
+            }, error => {
+              console.log(error);
+            });
         }
-      }, error => {
-        console.log(error);
-      });
+      })
+
+
+    } else {
+      this.funcionario = false;
+
+      let data = {
+        users: this.service.get_lista_users(),
+        dishes: this.service.get_lista_dishes(),
+        observations: this.lista_observaciones
       }
-    })
+
+      console.log(data);
+      this.http
+        .post<any>(urls.api + 'order/place', data, cors.httpOptions)
+        .subscribe(response_api => {
+          console.log(response_api);
+          // {"idOrder":568,"idClient":116920112,"idCook":334342343,"date":1574382420000,"rating":null,"observation":"No observation"}
+          if (response_api.length == 0) {
+            Swal.fire({
+              title: 'Error',
+              text: 'Error al crear la orden, intente de nuevo',
+              type: 'error',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            })
+          } else {
+            Swal.fire(
+              'Orden registrada',
+              'Puede cancelar su orden en un lapso de 2 minutos',
+              'success'
+            );
+            this.gotoProductDetailsV2('orden_proceso');
+          }
+        }, error => {
+          console.log(error);
+        });
+    }
   }
 
   como_pago() {
