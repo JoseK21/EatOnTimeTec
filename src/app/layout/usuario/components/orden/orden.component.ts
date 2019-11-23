@@ -69,6 +69,8 @@ export class OrdenComponent implements OnInit {
   lista_observaciones = [];
   acepto;
   comprar() {
+    console.log(localStorage.getItem('lista_usuario_orden'));
+    console.log(localStorage.getItem('lista_platillo_orden'));
 
     let lista_usuario_orden = JSON.parse(localStorage.getItem('lista_usuario_orden'));
     let lista_platillo_orden = JSON.parse(localStorage.getItem('lista_platillo_orden'));
@@ -84,44 +86,20 @@ export class OrdenComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true,
       html:
-        'Tus puntos totales son: ' + pts /* +
-          '<br/>¿Cuántos puntos quieres usar? <input id="puntos" type="number" name="quantity" min="1" max="5">' */,
+        'Tus puntos totales son: ' + pts +
+          '<br/>¿Cuántos puntos quieres usar? <input id="puntos" type="number" min="1" max="'+pts+'">',
       focusConfirm: false,
       preConfirm: () => {
-        console.log("Sol num punt");
         this.acepto = true;
       }
     })
-
     if (this.acepto) {
-      console.log("Accepto");
-      Swal.mixin({
-        input: 'number',
-        confirmButtonText: 'Next &rarr;',
-        showCancelButton: true
-      }).queue([
-        {
-          title: 'Puntos',
-          text: 'Ingrese la cantidad a utilizar'
-        }
-      ]).then((result) => {
-        if (result.value) {
-          const answers = JSON.stringify(result.value)
-          Swal.fire({
-            title: 'All done!',
-            html: `
-                Your answers:
-                <pre><code>${answers}</code></pre>
-              `,
-            confirmButtonText: 'Lovely!'
-          })
-        }
-      })
-    }
-
-    else{
+      console.log((<HTMLInputElement>document.getElementById('puntos')).value);
+      
+    }else{
 
     }
+
 
     this.lista_observaciones;
 
@@ -134,6 +112,8 @@ export class OrdenComponent implements OnInit {
     this.http
     .post<any>(urls.api + 'order/place', data, cors.httpOptions)
     .subscribe(response_api => {
+      console.log(response_api);
+      
 
       // {"idOrder":568,"idClient":116920112,"idCook":334342343,"date":1574382420000,"rating":null,"observation":"No observation"}
       if (response_api.length == 0) {
@@ -158,5 +138,13 @@ export class OrdenComponent implements OnInit {
       alert('error');
     });
 
+  }
+
+  como_pago(){
+    Swal.fire(
+      '¿Como pago la orden?',
+      'El cargo de la orden será referida al Departamento Financiero',
+      'info'
+    )
   }
 }

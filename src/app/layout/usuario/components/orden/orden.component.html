@@ -9,8 +9,8 @@
           {{item}}
         </div>
         <div class="col-4" style="right: 0px;position: absolute;">
-            <i class="far fa-comment"></i> &nbsp;&nbsp;
-            <i class="fa fa-times-circle"></i>
+          <i class="far fa-comment"></i> &nbsp;&nbsp;
+          <i class="fa fa-times-circle"></i>
         </div>
       </div>
     </div>
@@ -39,11 +39,15 @@
 <div class="container">
   <div class="row align-items-center">
     <div class="col" style="text-align: left;">
-      Precio Total: ₡ 4,500 <br>
+       Precio Total: ₡ 4,500 <br> 
       Total de puntos : 45
     </div>
     <div class="col-4">
       <button type="button" class="btn btn-primary" (click)="comprar()">Comprar</button>
     </div>
+  </div>
+  <div class="row justify-content-end">
+    <a (click)="como_pago()" style="color: blue;"> ¿Como pago mi orden?</a>
+
   </div>
 </div>
