@@ -44,6 +44,7 @@ import { GraficasComponent } from './layout/graficas/graficas.component';
 
 /* Guards */
 import { ChefGuard, EstudianteGuard, AdminGuard, AdminMenuGuard } from './shared';
+import { NavbarAdminMenuComponent } from './shared/navbar/navbar-admin-menu/navbar-admin-menu.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { ChefGuard, EstudianteGuard, AdminGuard, AdminMenuGuard } from './shared
         ConfigSistemaComponent,
         NavbarAdminComponent,
         GraficasComponent,
+        NavbarAdminMenuComponent,
     ],
     imports: [
         ChartsModule,

@@ -1,43 +1,43 @@
 <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="row align-items-center">
-      <div class="col-8">
-  
-        <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-          <input class="form-control" type="search" placeholder="Nombre/Télefono" class="form-control" (focus)="focus=true"
-            (blur)="focus=false" formControlName="amigo" [ngClass]="{ 'is-invalid': submitted && f.amigo.errors }">
-        </div>
-  
-        <div *ngIf="submitted && f.amigo.errors">
-          <div *ngIf="f.amigo.errors.required" class="e_input">El nombre/télefono del amigo es requerido</div>
-        </div>
-  
-      </div>
-      <div class="col"><button class="btn btn-primary">Buscar</button></div>
-    </div>
-  </form>
-  
-  <div class="card border-primary">
-    <div class="card-body">
-      <div class="container">
-        <div class="row justify-content-between" *ngFor="let amigo of amigos_list">
-          <div class="col" style="text-align: left;">
-            {{amigo.name}}
-          </div>
-          <div class="form-group">
-              <div class="form-check-inline" *ngFor="let p of preferences">
-                <label class="form-check-label">
-                  <input type="checkbox" class="form-check-input" name="optradio"
-                    (click)="edit_preference(p.preference)">{{p.preference}}
-                </label>
-              </div>
-              <div class="col"><button class="btn btn-primary">Actualizar</button></div>
+  <div class="row align-items-center">
+    <div class="col-8">
 
-            </div>
+      <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+        <input class="form-control" type="search" placeholder="Nombre/Télefono" class="form-control"
+          (focus)="focus=true" (blur)="focus=false" formControlName="name"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+      </div>
+
+      <div *ngIf="submitted && f.name.errors">
+        <div *ngIf="f.name.errors.required" class="e_input">El nombre/télefono del usuario es requerido</div>
+      </div>
+
+    </div>
+    <div class="col"><button class="btn btn-primary">Buscar</button></div>
+  </div>
+</form>
+
+<div class="card border-primary">
+  <div class="card-body" style="min-height:1px">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col" style="text-align: left;">
+          {{user_found}}
+        </div>
+        <div class="form-group" >
+          <div class="form-check-inline" *ngFor="let r of roles">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name="optradio">
+              {{r}}
+            </label>
+          </div>         
         </div>
       </div>
+      <div class="col"><button class="btn btn-primary">Actualizar</button></div>
     </div>
   </div>
-  
-  <br>
-  <br>
-  <br>
+</div>
+
+<br>
+<br>
+<br>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin',
@@ -11,5 +12,4 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

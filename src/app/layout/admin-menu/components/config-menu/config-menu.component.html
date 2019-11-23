@@ -1,3 +1,14 @@
+<footer class="navbar navbar-expand navbar-primary flex-column flex-md-row bd-navbar stickyFooter">
+    <div class="navbar-nav-scroll">
+     <ul class="navbar-nav bd-navbar-nav flex-row">
+       <li class="nav-item">
+          <i (click)="gotoProductDetailsV2()"  class="fas fa-3x fa-plus-circle"></i>
+       </li>       
+     </ul>
+   </div>
+ </footer>
+ 
+
 <div class="content-center brand">
   <div id="accordion">
     <div class="card" style="margin-bottom: 0 !important;" *ngFor="let menu of menu_list">
@@ -12,7 +23,7 @@
           </div>
 
           <div class="col-2 align-self-center" (click)="remove(menu.name)">
-            <i class="fa fa-delete"></i>
+            <i class="fa fa-trash"></i>
           </div>
           <div class="col-2 align-self-center" (click)="edit(menu.name)">
             <i class="fa fa-edit"></i>

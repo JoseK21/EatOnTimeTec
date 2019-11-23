@@ -38,8 +38,8 @@ import { ConfigSistemaComponent } from './layout/admin/components/config-sistema
 const routes: Routes = [
     // Redirect
     { path: '', redirectTo: 'inicio_sesion', pathMatch: 'full' },
-    { path: 'admin', redirectTo: 'admin/estadisticas', pathMatch: 'full' },
-    { path: 'admin_menu', redirectTo: 'admin/config_menu', pathMatch: 'full' },
+    { path: 'admin', redirectTo: 'admin/asignar_rol', pathMatch: 'full' },
+    { path: 'admin_menu', redirectTo: 'admin_menu/config_menu', pathMatch: 'full' },
     { path: 'usuario', redirectTo: 'usuario/menu', pathMatch: 'full' },
     { path: 'chef', redirectTo: 'chef/no_confirmadas', pathMatch: 'full' },
 

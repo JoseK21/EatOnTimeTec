@@ -15,25 +15,6 @@ export class AmigosComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  amigos_list_A = [
-    { name: "José Núñez" },
-    { name: "Marcelo Sanchez" },
-    { name: "Daniel Montoya" },
-    { name: "José Núñez" },
-    { name: "Marcelo Sanchez" },
-    { name: "Daniel Montoya" },
-    { name: "José Núñez" },
-    { name: "Marcelo Sanchez" },
-    { name: "Daniel Montoya" },
-    { name: "José Núñez" },
-    { name: "Marcelo Sanchez" },
-    { name: "Daniel Montoya" },
-    { name: "José Núñez" },
-    { name: "Marcelo Sanchez" },
-    { name: "Daniel Montoya" },
-    { name: "Sebastian Mora" }
-
-  ]
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {

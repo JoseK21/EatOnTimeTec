@@ -20,10 +20,10 @@ export class ConfigSistemaComponent implements OnInit {
   focus;
   focus1;
 
+ 
   constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {
-    localStorage.clear();
     this.loginForm = this.formBuilder.group({
       user_id: ['', Validators.required],
       password: ['', Validators.required]
@@ -50,6 +50,11 @@ export class ConfigSistemaComponent implements OnInit {
       }, error => {
         console.log(error.error.text);
       });
+  }
+
+  signOUT(){
+    localStorage.clear();
+    
   }
 
 

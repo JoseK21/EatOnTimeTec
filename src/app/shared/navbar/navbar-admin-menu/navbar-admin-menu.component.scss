@@ -1,3 +1,14 @@
+.sticky {
+    position: fixed;
+    /* top: 0; */
+    bottom: 0;
+    width: 100%,
+  }
+
+header {
+    z-index:100;
+    background-color: white;
+} 
 
 .stickyFooter {
     margin-bottom: 0px;
