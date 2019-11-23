@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { urls } from '../../../../config/urls';
 import { cors } from '../../../../config/cors';
 import Swal from 'sweetalert2';
+import { ServiceService } from 'app/shared/services/service.service';
 
 @Component({
   selector: 'app-cuenta',
@@ -23,22 +24,17 @@ export class CuentaComponent implements OnInit {
   gustos = ["Pastas", "Vegeterariano", "Carnes", "Ensaladas"];
 
 
-  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
+  constructor(private service: ServiceService, private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
 
   ngOnInit() {
-
+    this.get_preferences();
     this.getProvince();
     this.get_info();
-    this.get_preferences();
 
     this.signUpForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       provinceName: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern('[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]')]],
-      /* rol: "Estudiante", */
-      /*      id_user: this.fake_datas_random,
-           name: 'Juan Pablo Esquivel Moya',
-           password: String(this.fake_datas_random) */
     });
   }
 
@@ -55,28 +51,31 @@ export class CuentaComponent implements OnInit {
     }
     let data = this.signUpForm.value;
 
-    data.id_user = "";
-    data.name = "";
-    data.password = "";
+    /*     data.id_user = "";
+        data.name = "";
+        data.password = ""; */
 
     this.http
-      .get<any>(urls.api + 'actualizar cuentaaaaaa' + localStorage.getItem('user_id'), cors.httpOptions)
+      .post<any>(urls.api + 'URL' + localStorage.getItem('user_id'), data, cors.httpOptions)
       .subscribe(response_api => {
         if (response_api.length == 0) {
           Swal.fire({
             type: 'error',
             title: 'Oops...',
-            text: 'Información no cargada, recargue por favor.',
+            text: 'Información no actualizada, intentelo de nuevo.',
           })
         } else {
-          this.info_user = response_api;
-
+          Swal.fire({
+            type: 'success',
+            title: 'Actualización',
+            text: 'Información actualizada exitosamente.',
+          })
         }
       });
   }
 
 
-  my_preferences = [];
+
   get_info() {
     this.http
       .get<any>(urls.api + 'person/details/' + localStorage.getItem('user_id'), cors.httpOptions)
@@ -124,6 +123,7 @@ export class CuentaComponent implements OnInit {
   }
 
 
+  my_preferences = [];
   preferencias: Array<String> = [];
   check_preferencias = [];
   get_preferences() {
@@ -132,7 +132,6 @@ export class CuentaComponent implements OnInit {
       .subscribe(response_api => {
         console.log('<<Mis Gustos>>');
         console.log(response_api);
-
         if (response_api.length == 0) {
           Swal.fire({
             type: 'error',
@@ -141,7 +140,7 @@ export class CuentaComponent implements OnInit {
           })
         } else {
           this.my_preferences = response_api;
-          console.log(this.my_preferences);
+          this.service.set_preference(this.my_preferences);
 
         }
       });
@@ -162,21 +161,15 @@ export class CuentaComponent implements OnInit {
           this.preferencias = response_api;
           let i = 0;
 
+          let misGUSTOS = this.service.get_preference();
           this.preferencias.forEach(element => {
-            console.log('element[name]: '+element['preference']);
-            console.log(this.my_preferences);
-            
-            this.my_preferences.forEach(pref => {
-              console.log('pref: '+pref);
+            console.log('element[name]: ' + element['preference']);
 
-
-              if (pref == element['preference']) {
-                this.preferencias[i]['checked'] = true;
-              }
-              else {
-                this.preferencias[i]['checked'] = false;
-              }
-            });
+            if (misGUSTOS.find((s) => s === element['preference'])) {
+              this.preferencias[i]['checked'] = true;
+            } else {
+              this.preferencias[i]['checked'] = false;
+            }
           })
           i++;
         }

@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="row">
-    Cantidad de puntos disponibles : #####
+    Cantidad de puntos disponibles : 15
   </div>
 
   <div class="row">
@@ -9,8 +9,8 @@
 
     <div class="chart-wrapper">
       <canvas baseChart [datasets]="barChartData_Ord_Mes" [labels]="barChartLabels_Ord_Mes"
-        [options]="barChartOptions_Ord_Mes" [colors]="barChartColors" [plugins]="barChartPlugins_Ord_Mes" [legend]="barChartLegend_Ord_Mes"
-        [chartType]="barChartType_Ord_Mes">
+        [options]="barChartOptions_Ord_Mes" [colors]="barChartColors" [plugins]="barChartPlugins_Ord_Mes"
+        [legend]="barChartLegend_Ord_Mes" [chartType]="barChartType_Ord_Mes">
       </canvas>
     </div>
   </div>
@@ -31,7 +31,7 @@
         Tabla de conversión (Puntos -> Colones)
       </div>
       <div class="card-body" style="align-content: center; min-height:1px">
-        40 Puntos : ₡ 4 000
+        10 Puntos : ₡ 1 000
       </div>
     </div>
   </div>
@@ -40,8 +40,8 @@
     Uso de puntos por mes <br>
     <div class="chart-wrapper">
       <canvas baseChart [datasets]="barChartData_Pts_Mes" [labels]="barChartLabels_Pts_Mes"
-        [options]="barChartOptions_Pts_Mes" [colors]="barChartColors" [plugins]="barChartPlugins_Pts_Mes" [legend]="barChartLegend_Pts_Mes"
-        [chartType]="barChartType_Pts_Mes">
+        [options]="barChartOptions_Pts_Mes" [colors]="barChartColors" [plugins]="barChartPlugins_Pts_Mes"
+        [legend]="barChartLegend_Pts_Mes" [chartType]="barChartType_Pts_Mes">
       </canvas>
     </div>
   </div>
@@ -49,20 +49,23 @@
   <div class="row">
     Transacciones <br>
 
-    <table class="table">
-      <thead class="thead-dark" style="font-size: 13px">
-        <tr>
-          <th scope="col"># Transacciones</th>
-          <th scope="col">Datos</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
+          <thead>
+            <tr>
+              <th scope="col"># Transacciones</th>
+              <th scope="col">Datos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of trans; let i = index">
+              <th scope="row">{{i}}</th>
+              <td>{{t}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   </div>
+  <br>
 </div>
 <br><br>

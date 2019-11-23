@@ -93,7 +93,7 @@ export class OrdenComponent implements OnInit {
 
   lista_observaciones = [];
   acepto;
-  comprar() {
+  comprar() {    
     let pts = "123";
     Swal.fire({
       title: '¿Quieres aplicar un descuento?',
@@ -124,8 +124,6 @@ export class OrdenComponent implements OnInit {
     }
 
     console.log(data);
-
-
     this.http
       .post<any>(urls.api + 'order/place', data, cors.httpOptions)
       .subscribe(response_api => {
@@ -146,9 +144,7 @@ export class OrdenComponent implements OnInit {
             'Puede cancelar su orden en un lapso de 2 minutos',
             'success'
           );
-          //this.router.navigateByUrl('orden_proceso');
-          this.router.navigateByUrl('./orden_proceso');
-
+          this.gotoProductDetailsV2('orden_proceso');
         }
       }, error => {
         console.log(error);
@@ -163,5 +159,18 @@ export class OrdenComponent implements OnInit {
       'El cargo de la orden será referida al Departamento Financiero',
       'info'
     )
+  }
+
+  public gotoProductDetailsV2(id) {
+
+    let url = '/usuario'
+    var myurl = `${url}/${id}`;
+    this.router.navigateByUrl(myurl).then(e => {
+      if (e) {
+        console.log("Navigation is successful!");
+      } else {
+        console.log("Navigation has failed!");
+      }
+    });
   }
 }

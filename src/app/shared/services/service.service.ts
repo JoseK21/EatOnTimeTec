@@ -5,15 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class ServiceService {
 
-  
+
   lista_users = [];
   lista_dishes = [];
+
+  lista_gustos = [];
 
   constructor() { }
 
   ngOnInit() {
     this.remove_datas()
-   }
+  }
 
 
   add_user(id) {
@@ -31,8 +33,17 @@ export class ServiceService {
     return this.lista_dishes;
   }
 
-  remove_datas(){
+  remove_datas() {
     this.lista_users = [];
     this.lista_dishes = [];
+  }
+
+  /* Gustos */
+  set_preference(gustos) {
+    this.lista_gustos = gustos
+  }
+
+  get_preference() {
+    return this.lista_gustos;
   }
 }
