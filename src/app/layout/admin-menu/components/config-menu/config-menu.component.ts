@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { urls } from '../../../../config/urls';
 import { cors } from '../../../../config/cors';
 import Swal from 'sweetalert2';
+import { ServiceService } from 'app/shared/services/service.service';
+import { OtherService } from 'app/shared/services/service/other.service';
 
 @Component({
   selector: 'app-config-menu',
@@ -13,24 +15,24 @@ import Swal from 'sweetalert2';
 export class ConfigMenuComponent implements OnInit {
 
 
-  menu_list = [
-    {
-      name: "Patacones",
-      shortname: "Patacones"
-    },
-    {
-      name: "Frijoles Blancos",
-      shortname: "FrijolesBlancos"
-    }
-  ];
+  menu_list: any = [];
 
-  constructor(public router: Router, private http: HttpClient) { }
+  constructor(public router: Router, private service: ServiceService, private call: OtherService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.http
+      .get<any>(urls.api + 'menu/dish/all', cors.httpOptions)
+      .subscribe(resp => {
+        this.menu_list = resp;
+      }, error => {
+        this.menu_list = [];
+      });
+
+  //  this.menu_list = this.call.get_menu_dish_all();
+
   }
 
   public gotoProductDetailsV2() {
-
     this.router.navigateByUrl('admin_menu/new_dish').then(e => {
       if (e) {
         console.log("Navigation is successful!");
@@ -42,11 +44,11 @@ export class ConfigMenuComponent implements OnInit {
 
 
   remove(name) {
-    console.log("Remove "+name);
+    console.log("Remove " + name);
 
   }
   edit(name) {
-    console.log("Edit "+name);
+    console.log("Edit " + name);
   }
 
 }

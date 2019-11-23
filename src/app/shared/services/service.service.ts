@@ -5,17 +5,28 @@ import { Injectable } from '@angular/core';
 })
 export class ServiceService {
 
-
-  lista_users = [];
-  lista_dishes = [];
-
-  lista_gustos = [];
-
   constructor() { }
 
   ngOnInit() {
     this.remove_datas()
   }
+
+  lista_users = [];
+  lista_dishes = [];
+  lista_gustos = [];
+
+
+  list_new_dishes = [];
+  add_new_dishes(new_dish) {
+    console.log("New Dish Added");    
+    this.list_new_dishes.push(new_dish);
+  }
+  get_list_new_dishes() {
+    return this.list_new_dishes;
+  }
+
+
+
 
 
   add_user(id) {

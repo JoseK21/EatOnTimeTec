@@ -1,0 +1,24 @@
+  post(data: any) {
+    this.http
+      .post<any>(urls.api + '/register', data, cors.httpOptions)
+      .subscribe(resp => {
+        console.log(resp);        
+        return resp
+      }, error => {
+        console.log(error);        
+        return false
+      });
+  }
+
+
+   get(data: any) {
+    this.http
+      .get<any>(urls.api + '/person/details/{user_id}', cors.httpOptions)
+      .subscribe(resp => {
+        console.log(resp);        
+        return resp
+      }, error => {
+        console.log(error);        
+        return false
+      });
+  }

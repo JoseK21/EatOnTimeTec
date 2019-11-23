@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { urls } from '../../../config/urls';
 import { cors } from '../../../config/cors';
 import Swal from 'sweetalert2';
+import { ServiceService } from 'app/shared/services/service.service';
+import { OtherService } from 'app/shared/services/service/other.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,14 +23,23 @@ export class SignUpComponent implements OnInit {
   focus1;
 
   provincias__ = ["0", "1", "2", "3", "4", "5"];
+  provincias: any = [];
 
-  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient, private service: ServiceService,  private call: OtherService) { }
 
   fake_datas_random = 2020202020;
   ngOnInit() {
 
-    this.get_preferences();
-    this.getProvince();
+    this.http
+      .get<any>(urls.api + 'person/provinces', cors.httpOptions)
+      .subscribe(resp => {
+        this.provincias = resp;
+      }, error => {
+        this.provincias = [];
+      });
+
+    //this.provincias = this.call.get_provinces();
+    // this.getProvince();
 
     this.signUpForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -76,12 +87,12 @@ export class SignUpComponent implements OnInit {
 
     let id_provincia;
     this.provincias.forEach(element => {
-      if ( JSON.parse(JSON.stringify(element)).provinceName == data.provinceName) {
-        data.province = { "idProvince": data.idProvince, "provinceName": data.provinceName};
-      }      
+      if (JSON.parse(JSON.stringify(element)).provinceName == data.provinceName) {
+        data.province = { "idProvince": data.idProvince, "provinceName": data.provinceName };
+      }
     });
 
-   
+
     console.log(data);
 
     this.http
@@ -122,7 +133,7 @@ export class SignUpComponent implements OnInit {
   }
 
   /* getProvince  */
-  provincias: Array<String> = [];
+
   getProvince() {
     console.log('getProvince()');
     this.provincias = [];
@@ -149,7 +160,7 @@ export class SignUpComponent implements OnInit {
       .get<any>(urls.api + 'person/default/preferences', cors.httpOptions)
       .subscribe(response_api => {
         console.log(response_api);
-        
+
         if (response_api.length == 0) {
           this.preferencias = [];
           console.log("Error al cargar las preferencias/gustos");

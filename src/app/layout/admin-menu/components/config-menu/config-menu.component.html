@@ -12,25 +12,29 @@
 <div class="content-center brand">
   <div id="accordion">
     <div class="card" style="margin-bottom: 0 !important;" *ngFor="let menu of menu_list">
-      <div class="card-header card_color" attr.id="heading{{menu.short_name}}">
-        <div class="row justify-content-between">
-          <div class="col align-self-left">
+      <div class="card-header card_color">
+        <div class="row ">
+            <div class="col" style="text-align: left;">
+                {{menu}}
+              </div>
+          <!-- <div class="col align-self-left">
             <button class="btn btn-link btn-block" data-toggle="collapse"
               attr.data-target="#collapse{{menu.short_name}}" aria-expanded="false"
               attr.aria-label="collapse{{menu.short_name}}" style="text-align: left; font-size: 14px; color: black;">
-              {{menu.name}}
+              {{menu}}
             </button>
-          </div>
+          </div> -->
 
-          <div class="col-2 align-self-center" (click)="remove(menu.name)">
+          <div class="col-2 align-self-end" (click)="remove(menu)">
             <i class="fa fa-trash"></i>
           </div>
-          <div class="col-2 align-self-center" (click)="edit(menu.name)">
+          <div class="col-2 align-self-end" (click)="edit(menu)">
             <i class="fa fa-edit"></i>
           </div>
         </div>
+        
       </div>
-
+<!-- 
       <div attr.id="collapse{{menu.short_name}}" class="collapse" attr.aria-labelledby="heading{{menu.short_name}}"
         data-parent="#accordion" style="text-align: left;">
         <div class="card-body">
@@ -39,8 +43,11 @@
           <p>Calorias : {{menu.calorias}}</p>
           <p>Ingredientes : {{menu.ingredientes}}</p>
         </div>
-      </div>
+      </div> -->
     </div>
+    <div class="row justify-content-center">
+        <button class="btn btn-primary btn-round">Publicar</button>
+      </div>
   </div>
   <br><br>
 </div>

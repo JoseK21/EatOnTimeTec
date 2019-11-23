@@ -72,11 +72,11 @@ export class LoginComponent implements OnInit {
          Chef : 3
          AdminMenu 4
       */
-      if (data.user_id == 2016653534 || data.user_id ==116920112) {
+      if (data.user_id == 116920112 || data.user_id ==2016653534) {
         this.onLoggedin("E", data.user_id);
         this.router.navigateByUrl('/usuario');
       }
-      else if (data.user_id == 2016928620) {
+      else if (data.user_id == 2016928920) {
         this.onLoggedin("E", data.user_id);
         localStorage.setItem('F', 'true');
         this.router.navigateByUrl('/usuario');
@@ -85,11 +85,11 @@ export class LoginComponent implements OnInit {
         this.onLoggedin("A", data.user_id);
         this.router.navigateByUrl('/admin');
       }
-      else if (data.user_id == 515111215) {
+      else if (data.user_id == 2016632434) {
         this.onLoggedin("C", data.user_id);
         this.router.navigateByUrl('/chef');
       }
-      else if (data.user_id == 2016632434) {      
+      else if (data.user_id == 334342343 || data.user_id == 515111215) {      
         const swalWithBootstrapButtons = Swal.mixin({
           customClass: {
             confirmButton: 'btn btn-primary',

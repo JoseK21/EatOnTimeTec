@@ -1,24 +1,24 @@
 <div class="container">
   <div class="content-center">
     <div class="card card-login card-plain">
-      <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="header header-primary" style="text-align: left;">
           Nuevo Platillo
         </div>
-        <div class="row">
-          <div class="col-sm">
-            <label>Nombre</label>
-            <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-              <input type="text" class="form-control" (focus)="focus=true" (blur)="focus=false" formControlName="name"
-                [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
-              <div *ngIf="submitted && f.name.errors" class="e_input">
-                <div *ngIf="f.name.errors.required">El nombre es requeridos</div>
+        <div class="content" style="text-align:left">
+          <div class="row">
+            <div class="col-sm">
+              <label>Nombre</label>
+              <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="text" class="form-control" (focus)="focus=true" (blur)="focus=false" formControlName="name"
+                  [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <div *ngIf="submitted && f.name.errors" class="e_input">
+                  <div *ngIf="f.name.errors.required">El nombre es requeridos</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="content" style="text-align:left">
           <div class="row">
             <div class="col-sm">
               <label>Precio</label>
@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-sm">
               <label>Tiempo de preparación</label>
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
@@ -43,7 +43,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="row">
             <div class="col-sm">
@@ -75,10 +75,23 @@
             <div class="col-sm">
               <label>Preferencias</label>
               <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
-                <input type="text" class="form-control" (focus)="focus=true" (blur)="focus=false" formControlName="preference"
-                  [ngClass]="{ 'is-invalid': submitted && f.preference.errors }">
+                <input type="number" class="form-control" (focus)="focus=true" (blur)="focus=false"
+                  formControlName="preference" [ngClass]="{ 'is-invalid': submitted && f.preference.errors }">
                 <div *ngIf="submitted && f.preference.errors" class="e_input">
                   <div *ngIf="f.preference.errors.required">Los preferencias son requeridos</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <label>Puntos</label>
+              <div class="form-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="number" class="form-control" (focus)="focus=true" (blur)="focus=false"
+                  formControlName="points" [ngClass]="{ 'is-invalid': submitted && f.points.errors }">
+                <div *ngIf="submitted && f.points.errors" class="e_input">
+                  <div *ngIf="f.points.errors.required">Los preferencias son requeridos</div>
                 </div>
               </div>
             </div>

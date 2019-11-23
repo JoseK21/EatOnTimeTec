@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { urls } from '../../../../config/urls';
 import { cors } from '../../../../config/cors';
 import Swal from 'sweetalert2';
+import { ServiceService } from 'app/shared/services/service.service';
+import { OtherService } from 'app/shared/services/service/other.service';
 
 @Component({
   selector: 'app-new-dish',
@@ -14,31 +16,54 @@ import Swal from 'sweetalert2';
 export class NewDishComponent implements OnInit {
 
  
-  signUpForm: FormGroup;
+  form: FormGroup;
   submitted = false;
-
-  data: Date = new Date();
   focus;
   focus1;
 
-  provincias__ = ["0", "1", "2", "3", "4", "5"];
-
-  constructor(private formBuilder: FormBuilder, public router: Router, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, public router: Router, private service: ServiceService,private call: OtherService ) { }
 
   fake_datas_random = 2020202020;
   ngOnInit() {
-
-    /* {"name":"XXXX", "points": XXX, "ingredients":"XXX,XXX,XXX", "calories":XXX, "price":XXXX, "preference": X} */
-    this.signUpForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      points: ['', Validators.required],
-      ingredients: ['', Validators.required],
-      calories: ['', Validators.required],
       price: ['', Validators.required],
+      /* time: ['', Validators.required], */
+      calories: ['', Validators.required],
+      ingredients: ['', Validators.required],
       preference: ['', Validators.required],
-      time: ['', Validators.required],
-
+      points: ['', Validators.required],
     });
-  } c
+  }
+
+  get f() { return this.form.controls; }
+
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.form.invalid) {
+      console.log("registerForm.invalid");
+      return;
+    }
+    let data = this.form.value;
+
+    if (this.call.post_dish_add(data) == true) {
+      Swal.fire({
+        type: 'success',
+        title: 'Exito',
+        text: "Platillo agregado correctamente",
+      })
+    } else {
+      Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: "Error al agregar platillo",
+      })
+    }
+    
+    
+    this.submitted = false;
+    this.form.reset();
+  }
 
 }
